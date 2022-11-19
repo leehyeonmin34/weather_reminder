@@ -1,0 +1,41 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.leehyeonmin34'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-web' // 스프링 부트
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA 사용
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // Entity Validation 애너테이션
+	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2' // swagger-ui
+	implementation 'mysql:mysql-connector-java' // MySQL 연동
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.9' // GSON (객체 - JSON)
+	testCompileOnly 'org.projectlombok:lombok' // 테스트 의존성 추가
+	testAnnotationProcessor 'org.projectlombok:lombok' // 테스트 의존성 추가
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // JUnit5, Assertj, Hamcrest, Mockito, JSONassert, JsonPath
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis' // spring boot에서 redis에 대한 의존성
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
