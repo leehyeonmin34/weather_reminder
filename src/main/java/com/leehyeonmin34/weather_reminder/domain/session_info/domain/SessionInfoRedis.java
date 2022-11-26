@@ -1,5 +1,6 @@
 package com.leehyeonmin34.weather_reminder.domain.session_info.domain;
 
+import com.leehyeonmin34.weather_reminder.domain.session_info.exception.AccessedExpiredSessionTokenException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

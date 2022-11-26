@@ -2,13 +2,12 @@ package com.leehyeonmin34.weather_reminder.global.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leehyeonmin34.auth_practice.domain.user.service.SessionService;
-import com.leehyeonmin34.auth_practice.global.common.AccessTokenDto;
-import com.leehyeonmin34.auth_practice.global.error.exception.ErrorCode;
+import com.leehyeonmin34.weather_reminder.domain.session_info.service.SessionService;
+import com.leehyeonmin34.weather_reminder.global.common.AccessTokenDto;
+import com.leehyeonmin34.weather_reminder.global.error.exception.ErrorCode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +22,6 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

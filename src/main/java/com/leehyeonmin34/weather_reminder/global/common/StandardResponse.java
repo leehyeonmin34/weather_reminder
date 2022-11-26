@@ -1,7 +1,7 @@
 package com.leehyeonmin34.weather_reminder.global.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.leehyeonmin34.auth_practice.global.error.ErrorResponse;
+import com.leehyeonmin34.weather_reminder.global.error.ErrorResponse;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.lang.Nullable;

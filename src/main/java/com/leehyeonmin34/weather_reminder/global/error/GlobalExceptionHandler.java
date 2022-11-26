@@ -1,8 +1,8 @@
 package com.leehyeonmin34.weather_reminder.global.error;
 
-import com.leehyeonmin34.auth_practice.global.common.StandardResponse;
-import com.leehyeonmin34.auth_practice.global.error.exception.BusinessException;
-import com.leehyeonmin34.auth_practice.global.error.exception.ErrorCode;
+import com.leehyeonmin34.weather_reminder.global.common.StandardResponse;
+import com.leehyeonmin34.weather_reminder.global.error.exception.BusinessException;
+import com.leehyeonmin34.weather_reminder.global.error.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

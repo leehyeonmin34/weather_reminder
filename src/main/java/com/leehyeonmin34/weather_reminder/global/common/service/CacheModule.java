@@ -1,6 +1,5 @@
 package com.leehyeonmin34.weather_reminder.global.common.service;
 
-import com.leehyeonmin34.auth_practice.domain.user.exception.SessionInfoNotExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.Cache;
