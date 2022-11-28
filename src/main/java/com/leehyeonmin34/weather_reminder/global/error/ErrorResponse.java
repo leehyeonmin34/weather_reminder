@@ -1,6 +1,6 @@
 package com.leehyeonmin34.weather_reminder.global.error;
 
-import com.leehyeonmin34.auth_practice.global.error.exception.ErrorCode;
+import com.leehyeonmin34.weather_reminder.global.error.exception.ErrorCode;
 import lombok.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;

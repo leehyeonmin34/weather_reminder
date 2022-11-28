@@ -1,7 +1,6 @@
 package com.leehyeonmin34.weather_reminder.global.config;
 
-import com.leehyeonmin34.auth_practice.domain.user.repository.SessionInfoRepository;
-import lombok.AllArgsConstructor;
+import com.leehyeonmin34.weather_reminder.domain.session_info.repository.SessionInfoRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

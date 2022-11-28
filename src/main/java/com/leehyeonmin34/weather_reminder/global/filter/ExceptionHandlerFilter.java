@@ -1,11 +1,11 @@
 package com.leehyeonmin34.weather_reminder.global.filter;
 
 import com.google.gson.Gson;
-import com.leehyeonmin34.auth_practice.domain.user.exception.NotLoggedInException;
-import com.leehyeonmin34.auth_practice.global.common.StandardResponse;
-import com.leehyeonmin34.auth_practice.global.error.ErrorResponse;
-import com.leehyeonmin34.auth_practice.global.error.exception.BusinessException;
-import com.leehyeonmin34.auth_practice.global.error.exception.ErrorCode;
+import com.leehyeonmin34.weather_reminder.domain.user.exception.NotLoggedInException;
+import com.leehyeonmin34.weather_reminder.global.common.StandardResponse;
+import com.leehyeonmin34.weather_reminder.global.error.ErrorResponse;
+import com.leehyeonmin34.weather_reminder.global.error.exception.BusinessException;
+import com.leehyeonmin34.weather_reminder.global.error.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

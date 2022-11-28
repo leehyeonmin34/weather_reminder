@@ -1,8 +1,8 @@
 package com.leehyeonmin34.weather_reminder.global.service;
 
-import com.leehyeonmin34.auth_practice.global.common.domain.CacheModuleTestEntity;
-import com.leehyeonmin34.auth_practice.global.common.service.CacheModule;
-import com.leehyeonmin34.auth_practice.global.config.CacheEnv;
+import com.leehyeonmin34.weather_reminder.global.common.domain.CacheModuleTestEntity;
+import com.leehyeonmin34.weather_reminder.global.common.service.CacheModule;
+import com.leehyeonmin34.weather_reminder.global.config.CacheEnv;
 import lombok.Getter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
