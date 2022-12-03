@@ -1,0 +1,15 @@
+# Load Balancing
+upstream weather-reminder-server {
+        least_conn;
+        server 101.101.217.167:1025 weight=5 max_fails=3 fail_timeout=10s;
+        server 101.101.217.167:1026 weight=10 max_fails=3 fail_timeout=10s;
+}
+server {
+  listen 80;
+  server_name 101.101.217.167;
+  location / {
+    proxy_set_header Host $host;
+    proxy_set_header Connection "";
+    proxy_pass http://weather-reminder-server;
+  }
+}

@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  linking-server:
+    image: weather-reminder-server-docker-image
+    volumes:
+      - ./deploy:/deploy/weather-reminder # host의 ./deploy 디렉토리를 컨테이너의 /deploy/weather-reminder에 마운트 하겠다.
+    ports:
+      - "102:1024" # a : b -> a 포트에서 받는 트래픽을 b로 넘겨준다

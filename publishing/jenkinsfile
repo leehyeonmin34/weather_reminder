@@ -1,0 +1,148 @@
+pipeline {
+    agent any 	// 사용 가능한 에이전트에서 이 파이프라인 또는 해당 단계를 실행
+    stages {
+        stage('Prepare') {
+            steps {
+
+                git branch: 'main',
+                    url: 'https://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@github.com/leehyeonmin34/jenkins-practice.git'
+            }
+
+            post {
+                success {
+                    sh 'echo "Successfully Cloned Repository"'
+                }
+                failure {
+                    sh 'echo "Fail Cloned Repository"'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+            	// gralew이 있어야됨. git clone해서 project를 가져옴.
+                sh 'chmod +x gradlew'
+                sh  './gradlew --warning-mode=all --stacktrace clean build -x test'
+
+                sh 'ls -al ./build'
+            }
+            post {
+                success {
+                    echo 'gradle build success'
+                }
+
+                failure {
+                    echo 'gradle build failed'
+                }
+            }
+        }
+
+        stage('SSH Tranfer') {
+            steps {
+            	// remove existing code
+            	sshagent(credentials: ['weather-reminder-node']){
+            	    sh 'ssh -T root@weather-reminder-node rm -rf /home/docker-image/deploy/*'
+            	   // sh 'ssh -T root@weather-reminder-node exit'
+
+                    // transfer new code
+
+                    sh 'scp -r ./build root@weather-reminder-node:/home/docker-image/deploy/'
+
+            	}
+            }
+            post {
+                success {
+                    echo 'ssh transfer success'
+                }
+
+                failure {
+                    echo 'ssh transfer failed'
+                }
+            }
+        }
+
+                stage('Build Docker Image') {
+            steps {
+
+                sshagent(['weather-reminder-node']) {
+
+                    // build docker image
+            	   // sh 'ssh -T root@weather-reminder-node cd /home/docker-image /'
+            	   sh '''
+            	        ssh -T root@weather-reminder-node <<- _EOF_
+                	        cd /home/docker-image
+                	        docker build -t weather-reminder-server-docker-image .
+                	        ./deploy.sh
+                	        exit
+                	        _EOF_'''
+                }
+            }
+            post {
+                success {
+                    echo 'build docker image success'
+                }
+
+                failure {
+                    echo 'build docker image failed'
+                }
+            }
+        }
+
+        // stage('Test') {
+        //     steps {
+        //         echo  '테스트 단계와 관련된 몇 가지 단계를 수행합니다.'
+        //     }
+        // }
+        // stage('Prune Docker data') {
+        //     steps {
+        //         sh 'echo "Prune Docker data"'
+        //         sh 'docker system prune -a --volumes -f'
+        //     }
+
+        //     post {
+        //         success {
+        //             sh 'echo "Prune Docker data Success"'
+        //         }
+        //         failure {
+        //             sh 'echo "Prune Docker data Fail"'
+        //         }
+        //     }
+        // }
+
+
+
+        // stage('Docker Push') {
+        //     steps {
+        //         withCredentials([string(credentialsId: 'dockerHubPwd', variable: 'dockerHubPwd')]) {
+        //             sh "docker login -u mooh2jj -p ${dockerHubPwd}"
+        //         }
+        //         sh 'docker push mooh2jj/board_vue_backend'
+        //     }
+
+        //     post {
+        //         success {
+        //             echo 'Docker Push success'
+        //         }
+
+        //         failure {
+        //             echo 'Docker Push failed'
+        //         }
+        //     }
+        // }
+        // stage('Docker Deploy'){
+        //     steps{
+        //         sh 'docker-compose up -d'
+        //         sh 'docker-compose ps'
+        //     }
+        //     post {
+        //         success {
+        //             echo 'docker-compose success'
+        //         }
+
+        //         failure {
+        //             echo 'docker-compose failed'
+        //         }
+        //     }
+        // }
+    }
+}

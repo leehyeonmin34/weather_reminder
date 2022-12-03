@@ -32,7 +32,7 @@ public class NotiGeneratorAndSender {
 
         //  사용자에게 보내질 수 있게 큐에 추가해준다.
         System.out.println(notiQ);
-        Notification noti = new Notification(notiString, user.getId());
+        Notification noti = new Notification.Builder(notiString, user.getId()).build();
         notiQ.add(noti);
         return noti;
     };

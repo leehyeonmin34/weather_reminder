@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  linking-server:
+    image: weather-reminder-server-docker-image
+    volumes:
+      - ./deploy:/deploy/weather-reminder
+    ports:
+      - "1025:1024" # a : b -> a 포트에서 받는 트래픽을 b로 넘겨준다
