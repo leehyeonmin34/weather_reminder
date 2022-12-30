@@ -12,6 +12,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
@@ -33,7 +34,8 @@ public class SendNotiConfig {
     public Job sendNotiJob(JobBuilderFactory jobBuilderFactory, Step sendNotiJobStep){
         log.info("********** This is sendNotiJob");
         return jobBuilderFactory.get("sendNotiJob")
-                .preventRestart() // 이 job의 중복실행 방지
+                .incrementer(new RunIdIncrementer())
+//                .preventRestart() // 이 job의 중복실행 방지
                 .start(sendNotiJobStep)
                 .build();
     }
