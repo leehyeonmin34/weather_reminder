@@ -35,6 +35,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis' // spring boot에서 redis에 대한 의존성
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: '2.7.0' // batch 작업
 	testImplementation group: 'org.springframework.batch', name: 'spring-batch-test', version: '4.3.3' // batch 테스트
+	testImplementation("org.mock-server:mockserver-netty:5.7.2")
 }
 
 tasks.named('test') {
