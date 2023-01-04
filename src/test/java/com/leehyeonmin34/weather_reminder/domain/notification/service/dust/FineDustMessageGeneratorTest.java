@@ -19,7 +19,7 @@ public class FineDustMessageGeneratorTest extends ServiceTest {
 
         // GIVEN
         DustInfo dustInfo = new DustInfo();
-        User user = UserBuilder.build();
+        User user = UserBuilder.buildByOneRegion();
 
         // WHEN
         String result = fineDustMessageGenerator.generate(user, dustInfo);

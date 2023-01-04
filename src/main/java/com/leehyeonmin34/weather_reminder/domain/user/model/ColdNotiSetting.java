@@ -10,8 +10,8 @@ public class ColdNotiSetting implements NotiSetting {
 
     private Byte conditionCelcius = null;
 
-    public void changeConditionCelcius(Byte conditionTime){
-        this.conditionCelcius = conditionTime;
+    public void changeConditionCelcius(Byte conditionCelcius){
+        this.conditionCelcius = conditionCelcius;
     }
 
     @Override

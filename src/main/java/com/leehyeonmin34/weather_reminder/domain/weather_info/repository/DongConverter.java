@@ -1,24 +1,20 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.repository;
 
-import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.Dong;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Converter
-public class DongConverter implements AttributeConverter<Dong, String> {
+public class DongConverter implements AttributeConverter<WeatherRegion, String> {
 
     @Override
-    public String convertToDatabaseColumn(Dong attribute) {
+    public String convertToDatabaseColumn(WeatherRegion attribute) {
         return attribute.getDongCode();
     }
 
     @Override
-    public Dong convertToEntityAttribute(String dbData) {
-        return Dong.of(dbData);
+    public WeatherRegion convertToEntityAttribute(String dbData) {
+        return WeatherRegion.of(dbData);
     }
 }

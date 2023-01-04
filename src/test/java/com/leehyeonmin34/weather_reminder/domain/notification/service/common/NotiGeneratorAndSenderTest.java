@@ -4,7 +4,6 @@ import com.leehyeonmin34.weather_reminder.domain.notification.service.dust.DustN
 import com.leehyeonmin34.weather_reminder.domain.notification.service.weather.*;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.global.common.service.FutureHandler;
 import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +52,7 @@ public class NotiGeneratorAndSenderTest extends ServiceTest {
         // GIVEN
         when(weatherNotiGenerator.generateMessage(any(User.class))).thenReturn("날씨 알림");
         when(dustNotiGenerator.generateMessage(any(User.class))).thenReturn("먼지 알림");
-        User user = UserBuilder.build();
+        User user = UserBuilder.buildByOneRegion();
 
         // WHEN - THEN
         assertThatCode(()-> notiGeneratorAndSender.generateNotiAndSend(user))
