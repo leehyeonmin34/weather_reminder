@@ -22,13 +22,13 @@ public enum RainLevel {
     private final float min;
     private final float max;
 
-    public static RainLevel of(float precipitation){
+    public static RainLevel of(final float precipitation){
         return Arrays.stream(RainLevel.values()).filter(
                 item -> item.getMax() > precipitation && item.getMin() <= precipitation
             ).findAny().get();
     }
 
-    public static boolean isRain(float precipitation){
+    public static boolean isRain(final float precipitation){
         return precipitation >= NO.getMax();
     }
 

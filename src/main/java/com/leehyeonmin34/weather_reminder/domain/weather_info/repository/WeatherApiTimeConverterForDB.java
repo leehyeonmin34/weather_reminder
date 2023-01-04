@@ -12,12 +12,12 @@ public class WeatherApiTimeConverterForDB implements AttributeConverter<LocalDat
 
 
     @Override
-    public String convertToDatabaseColumn(LocalDateTime attribute) {
+    public String convertToDatabaseColumn(final LocalDateTime attribute) {
         return WeatherApiTimeConverter.serialize(attribute);
     }
 
     @Override
-    public LocalDateTime convertToEntityAttribute(String dbData) {
+    public LocalDateTime convertToEntityAttribute(final String dbData) {
         return WeatherApiTimeConverter.parse(dbData);
     }
 }

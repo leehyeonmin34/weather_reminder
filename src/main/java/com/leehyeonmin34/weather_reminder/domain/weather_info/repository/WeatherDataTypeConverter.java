@@ -15,12 +15,12 @@ public class WeatherDataTypeConverter implements AttributeConverter<WeatherDataT
 
 
     @Override
-    public String convertToDatabaseColumn(WeatherDataType attribute) {
+    public String convertToDatabaseColumn(final WeatherDataType attribute) {
         return attribute.getCode();
     }
 
     @Override
-    public WeatherDataType convertToEntityAttribute(String dbData) {
+    public WeatherDataType convertToEntityAttribute(final String dbData) {
         return WeatherDataType.of(dbData);
     }
 }

@@ -9,15 +9,15 @@ import java.util.List;
 
 public interface WeatherInfoRepository extends JpaRepository<WeatherInfo, Long> {
 
-    default List<WeatherInfo> findAllTodayByWeatherRegion(WeatherRegion weatherRegion){
-        LocalDateTime now = LocalDateTime.now();
-        int year = now.getYear();
-        int month = now.getMonthValue();
-        int day = now.getDayOfMonth();
-        LocalDateTime todayStart = LocalDateTime.of(year, month, day, 0, 0);
-        LocalDateTime todayEnd = LocalDateTime.of(year, month, day, 23, 59);
+    default List<WeatherInfo> findAllTodayByWeatherRegion(final WeatherRegion weatherRegion){
+        final LocalDateTime now = LocalDateTime.now();
+        final int year = now.getYear();
+        final int month = now.getMonthValue();
+        final int day = now.getDayOfMonth();
+        final LocalDateTime todayStart = LocalDateTime.of(year, month, day, 0, 0);
+        final LocalDateTime todayEnd = LocalDateTime.of(year, month, day, 23, 59);
         return findAllByWeatherRegionAndFcstTimeBetween(weatherRegion, todayStart, todayEnd);
     }
 
-    List<WeatherInfo> findAllByWeatherRegionAndFcstTimeBetween(WeatherRegion weatherRegion, LocalDateTime startTime, LocalDateTime endTime);
+    List<WeatherInfo> findAllByWeatherRegionAndFcstTimeBetween(final WeatherRegion weatherRegion, final LocalDateTime startTime, final LocalDateTime endTime);
 }

@@ -20,7 +20,7 @@ public enum NotiType {
     private String desc;
     private String code;
 
-    public static NotiType of(String code){
+    public static NotiType of(final String code){
         return Arrays.stream(NotiType.values())
                 .filter(item -> item.code.equals(code)).findAny()
                 .orElseThrow(() -> new IllegalArgumentException(String.format("선언되지 않은 알림 코드입니다. 요청된 알림코드 : %s", code)));

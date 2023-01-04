@@ -14,12 +14,12 @@ public class RegionListConverter implements AttributeConverter<List<Region>, Str
     private static final String SPLIT_CHAR = ",";
 
     @Override
-    public String convertToDatabaseColumn(List<Region> attribute) {
+    public String convertToDatabaseColumn(final List<Region> attribute) {
         return attribute.stream().map(item -> item.getCode()).collect(Collectors.joining(SPLIT_CHAR));
     }
 
     @Override
-    public List<Region> convertToEntityAttribute(String dbData) {
+    public List<Region> convertToEntityAttribute(final String dbData) {
         return Arrays.stream(dbData.split(SPLIT_CHAR))
                 .map(Region::of)
                 .collect(Collectors.toList());

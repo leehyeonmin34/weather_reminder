@@ -18,7 +18,7 @@ public class WeatherInfoList {
 
     private final WeatherRegion weatherRegion;
 
-    public WeatherInfoList(WeatherRegion weatherRegion, List<WeatherInfo> weatherInfoList){
+    public WeatherInfoList(final WeatherRegion weatherRegion, final List<WeatherInfo> weatherInfoList){
         this.weatherRegion = weatherRegion;
 
         this.tempWeatherInfoList = weatherInfoList.stream()

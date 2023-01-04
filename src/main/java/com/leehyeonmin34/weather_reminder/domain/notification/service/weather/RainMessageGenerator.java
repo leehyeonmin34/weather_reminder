@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 public class RainMessageGenerator implements WeatherMessageGenerator{
 
-    public static NotiContentType notiContentType = NotiContentType.RAIN;
+    public static final NotiContentType notiContentType = NotiContentType.RAIN;
 
     @Override
     public NotiContentType getNotiContentType(){ return notiContentType; }

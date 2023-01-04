@@ -19,9 +19,9 @@ public class WeatherInfoService {
 
     private final WeatherInfoRepository weatherInfoRepository;
 
-    public WeatherInfoList getWeatherInfoListToday(WeatherRegion weatherRegion){
+    public WeatherInfoList getWeatherInfoListToday(final WeatherRegion weatherRegion){
 
-        List<WeatherInfo> weatherInfoListToday = weatherInfoRepository.findAllTodayByWeatherRegion(weatherRegion);
+        final List<WeatherInfo> weatherInfoListToday = weatherInfoRepository.findAllTodayByWeatherRegion(weatherRegion);
 
         return new WeatherInfoList(weatherRegion, weatherInfoListToday);
     }

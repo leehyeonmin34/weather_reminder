@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class HotMessageGenerator implements WeatherMessageGenerator{
 
 
-    public static NotiContentType notiContentType = NotiContentType.HOT;
+    public static final NotiContentType notiContentType = NotiContentType.HOT;
 
     @Override
     public NotiContentType getNotiContentType(){ return notiContentType; }

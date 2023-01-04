@@ -6,15 +6,15 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter
-public class DongConverter implements AttributeConverter<WeatherRegion, String> {
+public class WeatherRegionConverter implements AttributeConverter<WeatherRegion, String> {
 
     @Override
-    public String convertToDatabaseColumn(WeatherRegion attribute) {
+    public String convertToDatabaseColumn(final WeatherRegion attribute) {
         return attribute.getDongCode();
     }
 
     @Override
-    public WeatherRegion convertToEntityAttribute(String dbData) {
+    public WeatherRegion convertToEntityAttribute(final String dbData) {
         return WeatherRegion.of(dbData);
     }
 }

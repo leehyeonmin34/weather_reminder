@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 public class WeatherNotiGenerator implements NotiGenerator {
 
     private final List<WeatherMessageGenerator> msgGenerators;
-    private final WeatherInfoRepository weatherInfoRepository;
     private final WeatherInfoService weatherInfoService;
     private final FutureHandler futureHandler;
 
@@ -34,7 +33,7 @@ public class WeatherNotiGenerator implements NotiGenerator {
     public String generateMessage(final User user){
         // 해당 유저의 알림 지역들에 대해 날씨 메시지 생성을 비동기적으로 호출.
         // 결과를 담은 future들을 리스트에 삽입.
-        List<CompletableFuture<String>> msgFutures = user.getRegionList().stream().map(
+        final List<CompletableFuture<String>> msgFutures = user.getRegionList().stream().map(
                 region -> CompletableFuture.supplyAsync(()
                                 -> generateMessageByRegion(user, region))
                         .orTimeout(60L, TimeUnit.SECONDS) // Time제한
@@ -54,7 +53,7 @@ public class WeatherNotiGenerator implements NotiGenerator {
 
         // 여러가지의 날씨 메시지 생성을 비동기적으로 호출.
         // 결과를 담은 future들을 리스트에 삽입.
-        List<CompletableFuture<String>> msgFutures = msgGenerators.stream().map(
+        final List<CompletableFuture<String>> msgFutures = msgGenerators.stream().map(
                 generator -> CompletableFuture.supplyAsync(()
                                 -> generator.generate(user, weatherInfoList))
                         .orTimeout(60L, TimeUnit.SECONDS) // Time제한

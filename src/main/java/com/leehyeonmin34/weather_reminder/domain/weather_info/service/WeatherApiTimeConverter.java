@@ -9,11 +9,11 @@ public class WeatherApiTimeConverter {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
 
-    static public LocalDateTime parse(String timeString){
+    static public LocalDateTime parse(final String timeString){
         return LocalDateTime.parse(timeString, formatter);
     }
 
-    static public String serialize(LocalDateTime localDateTime){
+    static public String serialize(final LocalDateTime localDateTime){
         return localDateTime.format(formatter);
     }
 

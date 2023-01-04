@@ -2,7 +2,7 @@ package com.leehyeonmin34.weather_reminder.domain.weather_info.domain;
 
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.DongConverter;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherRegionConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherApiTimeConverterForDB;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
@@ -29,7 +29,7 @@ public class WeatherInfo {
     @Column(name = "fcst_time", nullable = false, updatable = false)
     private LocalDateTime fcstTime;
 
-    @Convert(converter = DongConverter.class)
+    @Convert(converter = WeatherRegionConverter.class)
     @Column(name = "weather_region", nullable = false, updatable = false)
     private WeatherRegion weatherRegion;
 

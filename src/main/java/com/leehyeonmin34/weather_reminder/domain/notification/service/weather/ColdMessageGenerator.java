@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 @Component
 public class ColdMessageGenerator implements WeatherMessageGenerator{
 
-    public static NotiContentType notiContentType = NotiContentType.COLD;
+    public static final NotiContentType notiContentType = NotiContentType.COLD;
 
     @Override
     public NotiContentType getNotiContentType(){ return notiContentType; }

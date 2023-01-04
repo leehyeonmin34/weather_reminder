@@ -18,17 +18,10 @@ public enum WeatherRegion {
     private final String desc;
     private final String dongCode;
 
-    public static WeatherRegion of(String code){
+    public static WeatherRegion of(final String code){
         return Arrays.stream(WeatherRegion.values())
                 .filter(item -> item.getDongCode().equals(code))
                 .findAny()
                 .orElseThrow(() -> new InvalidEnumCodeException(WeatherRegion.class, code));
-    }
-
-    public static WeatherRegion of(Region region){
-        return Arrays.stream(WeatherRegion.values())
-                .filter(item -> item.getDesc().equals(region.getName()))
-                .findAny()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("%s에 해당하는 지역이 없습니다.", region)));
     }
 }
