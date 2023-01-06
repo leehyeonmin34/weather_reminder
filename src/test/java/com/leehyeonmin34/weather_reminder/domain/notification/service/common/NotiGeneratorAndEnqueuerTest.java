@@ -4,9 +4,9 @@ import com.leehyeonmin34.weather_reminder.domain.notification.service.dust.DustN
 import com.leehyeonmin34.weather_reminder.domain.notification.service.weather.*;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.global.common.service.FutureHandler;
-import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
+import com.leehyeonmin34.weather_reminder.global.message_q.service.MessageQ;
+import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,10 +21,10 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class NotiGeneratorAndSenderTest extends ServiceTest {
+public class NotiGeneratorAndEnqueuerTest extends ServiceTest {
 
     @InjectMocks
-    NotiGeneratorAndSender notiGeneratorAndSender;
+    NotiGeneratorAndEnqueuer notiGeneratorAndEnqueuer;
 
     @Mock
     WeatherNotiGenerator weatherNotiGenerator;
@@ -39,7 +39,7 @@ public class NotiGeneratorAndSenderTest extends ServiceTest {
     FutureHandler futureHandler;
 
     @Mock
-    NotiQ notiQ;
+    MessageQ messageQ;
 
     @BeforeEach
     private void init(){
@@ -56,7 +56,7 @@ public class NotiGeneratorAndSenderTest extends ServiceTest {
         User user = UserBuilder.build();
 
         // WHEN - THEN
-        assertThatCode(()-> notiGeneratorAndSender.generateNotiAndSend(user))
+        assertThatCode(()-> notiGeneratorAndEnqueuer.generateNotiAndEnqueue(user))
                 .doesNotThrowAnyException();
 
     }

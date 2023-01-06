@@ -4,11 +4,9 @@ import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInfoBuilder;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
-import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
+import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.BDDAssertions.then;
 

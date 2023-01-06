@@ -1,21 +1,24 @@
-package com.leehyeonmin34.weather_reminder.domain.notification.service.common;
+package com.leehyeonmin34.weather_reminder.global.message_q.service;
 
 import com.leehyeonmin34.weather_reminder.domain.notification.domain.Notification;
+import com.leehyeonmin34.weather_reminder.global.message_q.model.Message;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 @Component
-public class NotiQ {
+@ToString
+public class MessageQ {
 
-    private final Queue<Notification> queue = new LinkedList<>();
+    private final Queue<Message> queue = new LinkedList<>();
 
-    public void add(Notification noti){
+    public void add(Message noti){
         queue.add(noti);
     }
 
-    public Notification poll(){
+    public Message poll(){
         return queue.poll();
     }
 

@@ -3,7 +3,7 @@ package com.leehyeonmin34.weather_reminder.domain.notification.service.dust;
 import com.leehyeonmin34.weather_reminder.domain.dust_info.domain.DustInfo;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
-import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
+import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 

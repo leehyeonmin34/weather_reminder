@@ -1,4 +1,4 @@
-package com.leehyeonmin34.weather_reminder.global.parent;
+package com.leehyeonmin34.weather_reminder.global.test_config;
 
 import com.leehyeonmin34.weather_reminder.WeatherReminderApplication;
 import org.junit.jupiter.api.Disabled;

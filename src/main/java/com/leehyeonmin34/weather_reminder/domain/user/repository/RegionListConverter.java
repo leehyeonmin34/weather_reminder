@@ -4,6 +4,7 @@ import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,10 @@ public class RegionListConverter implements AttributeConverter<List<Region>, Str
 
     @Override
     public List<Region> convertToEntityAttribute(String dbData) {
-        return Arrays.stream(dbData.split(SPLIT_CHAR))
+        if (dbData.equals("") || dbData == null)
+            return new ArrayList<>();
+        else
+            return Arrays.stream(dbData.split(SPLIT_CHAR))
                 .map(Region::of)
                 .collect(Collectors.toList());
 

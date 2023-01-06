@@ -2,20 +2,20 @@ package com.leehyeonmin34.weather_reminder.domain.user.domain;
 
 import com.leehyeonmin34.weather_reminder.domain.user.model.*;
 import com.leehyeonmin34.weather_reminder.domain.user.repository.RegionListConverter;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "user")
+@ToString
 public class User {
 
     @Id
@@ -53,7 +53,7 @@ public class User {
     private byte remindAt;
 
     @Convert(converter = RegionListConverter.class)
-    private List<Region> regionList;
+    private List<Region> regionList = new ArrayList<>();
 
     private LocalDateTime pauseUntil;
 

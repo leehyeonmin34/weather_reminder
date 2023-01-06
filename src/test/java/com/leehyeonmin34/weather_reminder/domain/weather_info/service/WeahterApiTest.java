@@ -4,7 +4,7 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResp
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDtoTest;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.Dong;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
-import com.leehyeonmin34.weather_reminder.global.parent.IntegrationTest;
+import com.leehyeonmin34.weather_reminder.global.test_config.IntegrationTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
