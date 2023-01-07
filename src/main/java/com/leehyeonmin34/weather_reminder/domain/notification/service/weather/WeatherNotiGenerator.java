@@ -30,8 +30,17 @@ public class WeatherNotiGenerator implements NotiGenerator {
     private final FutureHandler futureHandler;
 
     @Override
+<<<<<<< HEAD
     public String generateMessage(final User user){
         // 해당 유저의 알림 지역들에 대해 날씨 메시지 생성을 비동기적으로 호출.
+=======
+    public String generateMessage(User user){
+
+        // TODO - dummy data
+        WeatherInfo weatherInfo = new WeatherInfo("0","0", WeatherRegion.SEOUL, WeatherDataType.TEMP, WeatherDataType.TEMP.getUnit(), 0F);
+
+        // 여러가지의 날씨 메시지 생성을 비동기적으로 호출.
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
         // 결과를 담은 future들을 리스트에 삽입.
         final List<CompletableFuture<String>> msgFutures = user.getRegionList().stream().map(
                 region -> CompletableFuture.supplyAsync(()

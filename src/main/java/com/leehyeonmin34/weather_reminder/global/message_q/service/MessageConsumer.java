@@ -27,8 +27,13 @@ public class MessageConsumer {
         this.failHandler = failHandler;
     }
 
+<<<<<<< HEAD
     @Scheduled(cron = "0/1 * * * * *")
     public void consume(){
+=======
+//    @Scheduled(cron = "0/1 * * * * *")
+    private void listen(){
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
         log.info("메시지큐에 메시지가 있는지 확인합니다.");
         if (!messageQ.isEmpty() && isTerminated)
             executeThreadPool();

@@ -25,7 +25,14 @@ public class LoadInfoItemSqlParameterSourceProvider implements ItemSqlParameterS
                 .addValue("baseTime", weatherInfo.getBaseTime())
                 .addValue("fcstTime", weatherInfo.getFcstTime())
                 .addValue("value", weatherInfo.getValue())
+<<<<<<< HEAD
                 .addValue("unit", weatherInfo.getWeatherDataType().getUnit())
                 ;
     }
 }
+=======
+                .addValue("unit", weatherInfo.getUnit())
+                ;
+    }
+}
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)

@@ -22,7 +22,6 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +45,7 @@ public class WeatherApiService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
+<<<<<<< HEAD
     public List<WeatherInfo> getWeatherInfo(final Region region, final WeatherDataType weatherDataType){
         final WeatherApiResponseDto dto = getApi(region, weatherDataType);
 
@@ -61,6 +61,36 @@ public class WeatherApiService {
                 .filter(item -> item.getFcstTime().compareTo(dayStart) >= 0 && item.getFcstTime().compareTo(dayEnd) < 0)
                 .map(item -> new WeatherInfo(item.getBaseTime(), item.getFcstTime(), region.getWeatherRegion(), weatherDataType, item.getValue()))
                 .collect(Collectors.toList());
+=======
+
+    // TODO - 날씨 지역이 아닌 일반 지역 기준으로 API 호출 필요
+//    public void loadAndSaveTodayWeatherInfo(){
+
+//        List<CompletableFuture<String>> msgFutures = Arrays.stream(Dong.values()).map( dong ->
+//                Arrays.stream(WeatherDataType.values()).map(
+//                weatherDataType -> CompletableFuture.supplyAsync(()
+//                                -> loadAndSaveWeatherInfo(dong, weatherDataType))
+//                        .orTimeout(60L, TimeUnit.SECONDS) // Time제한
+//                        .exceptionally(e -> "error") // 예외가 발생하면 빈 문자열 리턴
+//        ).collect(Collectors.toUnmodifiableList());
+
+//        Arrays.stream(Dong.values()).forEach( dong ->
+//                Arrays.stream(WeatherDataType.values()).forEach( weatherDataType ->
+//                        loadAndSaveWeatherInfo(dong, weatherDataType))
+//        );
+//    }
+
+    public List<WeatherInfo> getWeatherInfo(WeatherRegion weatherRegion, WeatherDataType weatherDataType){
+        WeatherApiResponseDto dto = getApi(weatherRegion, weatherDataType);
+
+        validateResponse(dto);
+
+        return dto.getResponse().getBody().getItems().getItem().stream()
+                .map(item -> new WeatherInfo(item.getBaseTime(), item.getFcstTime(), weatherRegion, weatherDataType, item.getUnit(), item.getValue()))
+                .collect(Collectors.toList());
+
+//        weatherInfoRepository.saveAll(weatherInfoList);
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
     }
 
     private void validateResponse(final WeatherApiResponseDto dto){
@@ -73,12 +103,21 @@ public class WeatherApiService {
         }
     }
 
+<<<<<<< HEAD
     public WeatherApiResponseDto getApi(final Region region, final WeatherDataType weatherDataType) {
         return getApi(URL, region, weatherDataType);
     }
 
     public WeatherApiResponseDto getApi(final String url, final Region region, final WeatherDataType weatherDataType){
         final URI uri = getUri(url, region, weatherDataType);
+=======
+    public WeatherApiResponseDto getApi(WeatherRegion weatherRegion, WeatherDataType weatherDataType) {
+        return getApi(URL, weatherRegion, weatherDataType);
+    }
+
+    public WeatherApiResponseDto getApi(String url, WeatherRegion weatherRegion, WeatherDataType weatherDataType){
+        URI uri = getUri(url, weatherRegion, weatherDataType);
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
 
         log.info(uri.toString());
 
@@ -90,14 +129,22 @@ public class WeatherApiService {
         return restTemplate.exchange(uri, HttpMethod.GET, httpEntity, WeatherApiResponseDto.class).getBody();
     }
 
+<<<<<<< HEAD
     public URI getUri(final String url, final Region region, final WeatherDataType weatherDataType){
+=======
+    public URI getUri(String url, WeatherRegion weatherRegion, WeatherDataType weatherDataType){
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
 
         return UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("serviceKey", SERVICE_KEY)
                 .queryParam("numOfRows", "49")
                 .queryParam("dataType", "json")
                 .queryParam("baseTime", parseIntoBaseTime(LocalDateTime.now()))
+<<<<<<< HEAD
                 .queryParam("dongCode", region.getWeatherRegion().getDongCode())
+=======
+                .queryParam("dongCode", weatherRegion.getDongCode())
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
                 .queryParam("dataTypeCd", weatherDataType.getCode())
                 .queryParam("pageNo", String.valueOf(1))
                 .build(true).toUri();
@@ -123,7 +170,13 @@ public class WeatherApiService {
             return lookupTime.minusDays(1);
     }
 
+<<<<<<< HEAD
 
+=======
+    public String getUriString(String url, WeatherRegion weatherRegion, WeatherDataType weatherDataType){
+        return getUri(url, weatherRegion, weatherDataType).toString();
+    }
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
 
 }
 

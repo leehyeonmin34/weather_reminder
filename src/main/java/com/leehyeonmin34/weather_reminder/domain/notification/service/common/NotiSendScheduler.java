@@ -26,7 +26,15 @@ public class NotiSendScheduler {
     @Qualifier("sendNotiJob")
     private final Job sendNotiJob;
 
+<<<<<<< HEAD
 //    @Scheduled(cron = "0/5 * * * * *") // TODO - 10분으로 조정
+=======
+<<<<<<< HEAD
+    @Scheduled(cron = "0/5 * * * * *") // TODO - 10분으로 조정
+=======
+//    @Scheduled(cron = "0/5 * * * * *") // TODO - 10분으로 조정
+>>>>>>> 005e93e (날씨 정보 조회 배치)
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
     public void sendMessage() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         log.info(LocalDateTime.now().toString());
         jobLauncher.run(sendNotiJob, new JobParametersBuilder(jobExplorer) // jobExplorer - 메타 테이블에 대한 read only 쿼리 기능을 위한 인터페이스, runId 조회 가능

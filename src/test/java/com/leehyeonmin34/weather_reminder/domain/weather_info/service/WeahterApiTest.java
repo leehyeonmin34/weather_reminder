@@ -26,11 +26,19 @@ public class WeahterApiTest extends IntegrationTest {
 
         // GIVEN
         final String URL = weatherApiService.URL;
+<<<<<<< HEAD
         final Region region = Region.SEOUL;
         final WeatherDataType weatherDataType = WeatherDataType.TEMP;
 
         // WHEN
         WeatherApiResponseDto response = weatherApiService.getApi(URL, region, weatherDataType);
+=======
+        final WeatherRegion weatherRegion = WeatherRegion.SEOUL;
+        final WeatherDataType weatherDataType = WeatherDataType.TEMP;
+
+        // WHEN
+        WeatherApiResponseDto response = weatherApiService.getApi(URL, weatherRegion, weatherDataType);
+>>>>>>> 589cb3d (날씨 정보 조회 배치 2)
 
         // THEN
         System.out.println(response);

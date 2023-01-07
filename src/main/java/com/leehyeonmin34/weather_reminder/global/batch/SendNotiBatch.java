@@ -39,7 +39,7 @@ public class SendNotiBatch {
 
     private static final int CHUNK_SIZE = 100;
 
-    @Bean
+//    @Bean
     public Job sendNotiJob(JobBuilderFactory jobBuilderFactory, Step sendNotiJobStep){
         log.info("********** This is sendNotiJob");
         return jobBuilderFactory.get("sendNotiJob")
