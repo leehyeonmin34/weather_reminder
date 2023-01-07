@@ -26,7 +26,7 @@ public class MessageConsumer {
         listen();
     }
 
-    @Scheduled(cron = "0/1 * * * * *")
+//    @Scheduled(cron = "0/1 * * * * *")
     private void listen(){
         log.info("메시지큐에 메시지가 있는지 확인합니다.");
         if (!messageQ.isEmpty())

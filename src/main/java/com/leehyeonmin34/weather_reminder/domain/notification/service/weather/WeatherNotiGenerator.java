@@ -3,7 +3,7 @@ package com.leehyeonmin34.weather_reminder.domain.notification.service.weather;
 import com.leehyeonmin34.weather_reminder.domain.notification.service.common.NotiGenerator;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.Dong;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherInfoRepository;
 import com.leehyeonmin34.weather_reminder.global.common.service.FutureHandler;
@@ -27,7 +27,7 @@ public class WeatherNotiGenerator implements NotiGenerator {
     public String generateMessage(User user){
 
         // TODO - dummy data
-        WeatherInfo weatherInfo = new WeatherInfo("0","0", Dong.SEOUL, WeatherDataType.TEMP, WeatherDataType.TEMP.getUnit(), 0F);
+        WeatherInfo weatherInfo = new WeatherInfo("0","0", WeatherRegion.SEOUL, WeatherDataType.TEMP, WeatherDataType.TEMP.getUnit(), 0F);
 
         // 여러가지의 날씨 메시지 생성을 비동기적으로 호출.
         // 결과를 담은 future들을 리스트에 삽입.

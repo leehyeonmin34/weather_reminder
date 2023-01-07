@@ -2,7 +2,7 @@ package com.leehyeonmin34.weather_reminder.domain.weather_info.service;
 
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDto;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.Dong;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherInfoRepository;
 import com.leehyeonmin34.weather_reminder.global.api.exception.OpenApiException;
@@ -20,7 +20,6 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,23 +46,33 @@ public class WeatherApiService {
     }
 
 
-    public void loadAndSaveTodayWeatherInfo(){
-        Arrays.stream(Dong.values()).forEach( dong ->
-                Arrays.stream(WeatherDataType.values()).forEach( weatherDataType ->
-                        loadAndSaveWeatherInfo(dong, weatherDataType))
-        );
-    }
+    // TODO - 날씨 지역이 아닌 일반 지역 기준으로 API 호출 필요
+//    public void loadAndSaveTodayWeatherInfo(){
 
-    private void loadAndSaveWeatherInfo(Dong dong, WeatherDataType weatherDataType){
-        WeatherApiResponseDto dto = getApi(dong, weatherDataType);
+//        List<CompletableFuture<String>> msgFutures = Arrays.stream(Dong.values()).map( dong ->
+//                Arrays.stream(WeatherDataType.values()).map(
+//                weatherDataType -> CompletableFuture.supplyAsync(()
+//                                -> loadAndSaveWeatherInfo(dong, weatherDataType))
+//                        .orTimeout(60L, TimeUnit.SECONDS) // Time제한
+//                        .exceptionally(e -> "error") // 예외가 발생하면 빈 문자열 리턴
+//        ).collect(Collectors.toUnmodifiableList());
+
+//        Arrays.stream(Dong.values()).forEach( dong ->
+//                Arrays.stream(WeatherDataType.values()).forEach( weatherDataType ->
+//                        loadAndSaveWeatherInfo(dong, weatherDataType))
+//        );
+//    }
+
+    public List<WeatherInfo> getWeatherInfo(WeatherRegion weatherRegion, WeatherDataType weatherDataType){
+        WeatherApiResponseDto dto = getApi(weatherRegion, weatherDataType);
 
         validateResponse(dto);
 
-        List<WeatherInfo> weatherInfoList = dto.getResponse().getBody().getItems().getItem().stream()
-                .map(item -> new WeatherInfo(item.getBaseTime(), item.getFcstTime(), dong, weatherDataType, item.getUnit(), item.getValue()))
+        return dto.getResponse().getBody().getItems().getItem().stream()
+                .map(item -> new WeatherInfo(item.getBaseTime(), item.getFcstTime(), weatherRegion, weatherDataType, item.getUnit(), item.getValue()))
                 .collect(Collectors.toList());
 
-        weatherInfoRepository.saveAll(weatherInfoList);
+//        weatherInfoRepository.saveAll(weatherInfoList);
     }
 
     private void validateResponse(WeatherApiResponseDto dto){
@@ -76,12 +85,12 @@ public class WeatherApiService {
         }
     }
 
-    public WeatherApiResponseDto getApi(Dong dong, WeatherDataType weatherDataType) {
-        return getApi(URL, dong, weatherDataType);
+    public WeatherApiResponseDto getApi(WeatherRegion weatherRegion, WeatherDataType weatherDataType) {
+        return getApi(URL, weatherRegion, weatherDataType);
     }
 
-    public WeatherApiResponseDto getApi(String url, Dong dong, WeatherDataType weatherDataType){
-        URI uri = getUri(url, dong, weatherDataType);
+    public WeatherApiResponseDto getApi(String url, WeatherRegion weatherRegion, WeatherDataType weatherDataType){
+        URI uri = getUri(url, weatherRegion, weatherDataType);
 
         System.out.println(uri);
 
@@ -93,14 +102,14 @@ public class WeatherApiService {
         return restTemplate.exchange(uri, HttpMethod.GET, httpEntity, WeatherApiResponseDto.class).getBody();
     }
 
-    public URI getUri(String url, Dong dong, WeatherDataType weatherDataType){
+    public URI getUri(String url, WeatherRegion weatherRegion, WeatherDataType weatherDataType){
 
         return UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("serviceKey", SERVICE_KEY)
                 .queryParam("numOfRows", "24")
                 .queryParam("dataType", "json")
                 .queryParam("baseTime", parseIntoBaseTime(LocalDateTime.now()))
-                .queryParam("dongCode", dong.getDongCode())
+                .queryParam("dongCode", weatherRegion.getDongCode())
                 .queryParam("dataTypeCd", weatherDataType.getCode())
                 .queryParam("pageNo", String.valueOf(1))
                 .build(true).toUri();
@@ -129,8 +138,8 @@ public class WeatherApiService {
             return localDateTime.minusDays(1);
     }
 
-    public String getUriString(String url, Dong dong, WeatherDataType weatherDataType){
-        return getUri(url, dong, weatherDataType).toString();
+    public String getUriString(String url, WeatherRegion weatherRegion, WeatherDataType weatherDataType){
+        return getUri(url, weatherRegion, weatherDataType).toString();
     }
 
 }

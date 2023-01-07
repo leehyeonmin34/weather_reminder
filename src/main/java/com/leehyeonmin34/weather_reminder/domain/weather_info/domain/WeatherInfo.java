@@ -1,18 +1,22 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.domain;
 
-import com.leehyeonmin34.weather_reminder.domain.user.repository.RegionListConverter;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.Dong;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.DongConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherRegionConverter;
+import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Table(name = "weather_info")
+@ToString
 public class WeatherInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "base_time", nullable = false, updatable = false)
@@ -21,9 +25,9 @@ public class WeatherInfo {
     @Column(name = "fcst_time", nullable = false, updatable = false)
     private String fcstTime;
 
-    @Convert(converter = DongConverter.class)
-    @Column(name = "dong", nullable = false, updatable = false)
-    private Dong dong;
+    @Convert(converter = WeatherRegionConverter.class)
+    @Column(name = "weather_region", nullable = false, updatable = false)
+    private WeatherRegion weatherRegion;
 
     @Convert(converter = WeatherDataTypeConverter.class)
     @Column(name = "weather_data_type", nullable = false, updatable = false)
@@ -36,10 +40,10 @@ public class WeatherInfo {
     private float value;
 
 
-    public WeatherInfo(String baseTime, String fcstTime, Dong dong, WeatherDataType weatherDataType, String unit, float value) {
+    public WeatherInfo(String baseTime, String fcstTime, WeatherRegion weatherRegion, WeatherDataType weatherDataType, String unit, float value) {
         this.baseTime = baseTime;
         this.fcstTime = fcstTime;
-        this.dong = dong;
+        this.weatherRegion = weatherRegion;
         this.weatherDataType = weatherDataType;
         this.unit = unit;
         this.value = value;

@@ -2,7 +2,7 @@ package com.leehyeonmin34.weather_reminder.domain.weather_info.service;
 
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDto;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDtoTest;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.Dong;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.global.test_config.IntegrationTest;
 import org.junit.jupiter.api.DisplayName;
@@ -25,11 +25,11 @@ public class WeahterApiTest extends IntegrationTest {
 
         // GIVEN
         final String URL = weatherApiService.URL;
-        final Dong dong = Dong.SEOUL;
+        final WeatherRegion weatherRegion = WeatherRegion.SEOUL;
         final WeatherDataType weatherDataType = WeatherDataType.TEMP;
 
         // WHEN
-        WeatherApiResponseDto response = weatherApiService.getApi(URL, dong, weatherDataType);
+        WeatherApiResponseDto response = weatherApiService.getApi(URL, weatherRegion, weatherDataType);
 
         // THEN
         System.out.println(response);
