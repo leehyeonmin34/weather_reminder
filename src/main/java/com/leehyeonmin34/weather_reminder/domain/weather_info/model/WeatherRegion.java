@@ -1,6 +1,6 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.model;
 
-import com.leehyeonmin34.weather_reminder.global.api.exception.OpenApiResponseStatus;
+import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
 import com.leehyeonmin34.weather_reminder.global.error.exception.InvalidEnumCodeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,17 +9,19 @@ import java.util.Arrays;
 
 @AllArgsConstructor
 @Getter
-public enum Dong {
+public enum WeatherRegion {
 
-    SEOUL("서울", "1100000000");
+    SEOUL("서울", "1100000000"),
+    BUSAN("부산", "XXX"),
+    ;
 
     private final String desc;
     private final String dongCode;
 
-    public static Dong of(String code){
-        return Arrays.stream(Dong.values())
+    public static WeatherRegion of(final String code){
+        return Arrays.stream(WeatherRegion.values())
                 .filter(item -> item.getDongCode().equals(code))
                 .findAny()
-                .orElseThrow(() -> new InvalidEnumCodeException(Dong.class, code));
+                .orElseThrow(() -> new InvalidEnumCodeException(WeatherRegion.class, code));
     }
 }

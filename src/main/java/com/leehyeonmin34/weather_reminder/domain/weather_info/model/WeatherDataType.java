@@ -20,7 +20,7 @@ public enum WeatherDataType {
     private final String code;
     private final String unit;
 
-    public static WeatherDataType of(String code){
+    public static WeatherDataType of(final String code){
         return Arrays.stream(WeatherDataType.values())
                 .filter(item -> item.getCode().equals(code))
                 .findAny()

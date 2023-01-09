@@ -3,7 +3,7 @@ package com.leehyeonmin34.weather_reminder.domain.weather_info.service;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDto;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDtoTest;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiTestResponseProvider;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.Dong;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +37,7 @@ public class WeatherApiTestWithMockServer extends ServiceTest {
     private WeatherApiTestResponseProvider weatherApiTestResponseProvider;
 
     private final String URL = weatherApiService.URL;
-    private final Dong dong = Dong.SEOUL;
+    private final WeatherRegion weatherRegion = WeatherRegion.SEOUL;
     private final WeatherDataType weatherDataType = WeatherDataType.TEMP;
 
     @Test
@@ -45,13 +45,13 @@ public class WeatherApiTestWithMockServer extends ServiceTest {
     public void WeatherApiTestSuccess() throws IOException {
 
         // GIVEN
-        final String SUCCESS_REQUEST_URL = weatherApiService.getUriString(URL, dong, weatherDataType);
+        final String SUCCESS_REQUEST_URL = weatherApiService.getUriString(URL, weatherRegion, weatherDataType);
         mockServer.expect(requestTo(SUCCESS_REQUEST_URL))
                 .andRespond(
                         withSuccess(weatherApiTestResponseProvider.getSuccessResponseAsString(), MediaType.APPLICATION_JSON));
 
         // WHEN
-        WeatherApiResponseDto response = weatherApiService.getApi(URL, dong, weatherDataType);
+        WeatherApiResponseDto response = weatherApiService.getApi(URL, weatherRegion, weatherDataType);
 
         // THEN
         WeatherApiResponseDtoTest.validateContentSuccess(response);
@@ -63,13 +63,13 @@ public class WeatherApiTestWithMockServer extends ServiceTest {
 
         // GIVEN
         final String FAIL_URL = weatherApiService.HOST + "/fail";
-        final String FAIL_REQUEST_URL = weatherApiService.getUriString(FAIL_URL, dong, weatherDataType);
+        final String FAIL_REQUEST_URL = weatherApiService.getUriString(FAIL_URL, weatherRegion, weatherDataType);
         mockServer.expect(requestTo(FAIL_REQUEST_URL))
                 .andRespond(
                         withSuccess(weatherApiTestResponseProvider.getFailResponseAsString(), MediaType.APPLICATION_JSON));
 
         // WHEN
-        WeatherApiResponseDto response = weatherApiService.getApi(FAIL_URL, dong, weatherDataType);
+        WeatherApiResponseDto response = weatherApiService.getApi(FAIL_URL, weatherRegion, weatherDataType);
 
         // THEN
         WeatherApiResponseDtoTest.validateContentFail(response);

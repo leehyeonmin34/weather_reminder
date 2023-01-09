@@ -37,7 +37,7 @@ public class Notification {
 
     }
 
-    private Notification(Builder builder){
+    private Notification(final Builder builder){
         this.msg = builder.msg;
         this.userId = builder.userId;
     }

@@ -11,7 +11,7 @@ public class NotiQ {
 
     private final Queue<Notification> queue = new LinkedList<>();
 
-    public void add(Notification noti){
+    public void add(final Notification noti){
         queue.add(noti);
     }
 

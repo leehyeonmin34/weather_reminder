@@ -2,11 +2,18 @@ package com.leehyeonmin34.weather_reminder.domain.notification.service.weather;
 
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInfoBuilder;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInfoListBuilder;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoList;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -15,18 +22,30 @@ public class HotMessageGeneratorTest extends ServiceTest {
     @InjectMocks
     private HotMessageGenerator hotMessageGenerator;
 
-    @Test
-    public void generateTest(){
+    @ParameterizedTest(name = "{index} : {0}")
+    @MethodSource("generateTestConditions")
+    public void generateTest(String conditionName, User user, int baseCondition, String expectedResult){
 
         // GIVEN
-        WeatherInfo weatherInfo = WeatherInfoBuilder.build();
-        User user = UserBuilder.build();
+        WeatherInfoList weatherInfoList = WeatherInfoListBuilder.build(WeatherRegion.SEOUL, WeatherDataType.TEMP, baseCondition);
 
         // WHEN
-        String result = hotMessageGenerator.generate(user, weatherInfo);
+        String result = hotMessageGenerator.generate(user, weatherInfoList);
 
         // THEN
-        then(result).isEqualTo("더운 날 메시지");
+        System.out.println(result);
+        then(result).isEqualTo(expectedResult);
 
+    }
+
+    private static Stream<Arguments> generateTestConditions() {
+        String expectedNormal = "\uD83E\uDD75 오늘 오후 2시, 3시, 4시, 5시, 6시, 7시, 8시의 기온이 3.0도보다 높아요.\n" +
+                "\n" +
+                "옷을 시원하게 입고 썬크림, 손풍기 등에 신경써요 !";
+        return Stream.of(
+                Arguments.arguments("알림 조건 충족 - 알림 생성", UserBuilder.buildByOneRegion(), 0, expectedNormal), // 알림이 생성되는 조건
+                Arguments.arguments("알림 조건 불충족 - 알림 미생성", UserBuilder.buildByOneRegion(), -100, ""), // 알림이 생성되지 않는 조건 (조건을 만족하는 시간대가 없음)
+                Arguments.arguments("알림 미설정 - 알림 미생성", UserBuilder.buildUserNoNoti(), 0, "") // 알림이 생성되지 않는 조건 (알림이 설정되어있지 않음)
+        );
     }
 }

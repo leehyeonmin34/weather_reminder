@@ -12,11 +12,6 @@ import javax.persistence.EntityNotFoundException;
 @RequiredArgsConstructor
 public class UserService {
 
-    final UserRepository userRepository;
-
-//    public UserGetResponse registorUser(UserRegistorRequest request){
-//
-//    }
-
+    private final UserRepository userRepository;
 
 }

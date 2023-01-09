@@ -1,10 +1,8 @@
 package com.leehyeonmin34.weather_reminder.domain.notification.service.dust;
 
 import com.leehyeonmin34.weather_reminder.domain.dust_info.domain.DustInfo;
-import com.leehyeonmin34.weather_reminder.domain.notification.service.weather.*;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.global.common.service.FutureHandler;
 import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +42,7 @@ public class DustNotiGeneratorTest extends ServiceTest {
     public void generateTest(){
         // GIVEN
         when(fineDustMessageGenerator.generate(any(User.class), any(DustInfo.class))).thenReturn("미세먼지 알림");
-        User user = UserBuilder.build();
+        User user = UserBuilder.buildByOneRegion();
 
         // WHEN
         String result = dustNotiGenerator.generateMessage(user);
