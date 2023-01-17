@@ -65,9 +65,9 @@ public class SendNotiBatchTest extends BatchTestSupport {
     public void sendNotiBatchTest() throws Exception {
 
         // GIVEN
-        User user1 = UserBuilder.buildUserNoNoti();
-        User user2 = UserBuilder.buildUserNoNoti();
-        User user3 = UserBuilder.buildUserNoNoti();
+        User user1 = UserBuilder.buildByOneRegion();
+        User user2 = UserBuilder.buildByOneRegion();
+        User user3 = UserBuilder.buildByOneRegion();
 
         user1.setNotiTime(new DayTime(9,0));
         user2.setNotiTime(new DayTime(9,0));

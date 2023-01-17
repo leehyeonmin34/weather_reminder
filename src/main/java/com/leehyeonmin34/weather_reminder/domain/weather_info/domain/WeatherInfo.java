@@ -2,7 +2,6 @@ package com.leehyeonmin34.weather_reminder.domain.weather_info.domain;
 
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
-<<<<<<< HEAD
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherRegionConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherApiTimeConverterForDB;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
@@ -10,28 +9,16 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApi
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-=======
-import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherRegionConverter;
-import lombok.Getter;
->>>>>>> 589cb3d (날씨 정보 조회 배치 2)
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-<<<<<<< HEAD
-@Entity(name = "WeatherInfo")
-@Getter
-@ToString
-@Table(name = "weather_info")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-=======
 @Entity
 @Getter
-@Table(name = "weather_info")
 @ToString
->>>>>>> 589cb3d (날씨 정보 조회 배치 2)
+@Table
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WeatherInfo {
 
     @Id
@@ -47,11 +34,7 @@ public class WeatherInfo {
     private LocalDateTime fcstTime;
 
     @Convert(converter = WeatherRegionConverter.class)
-<<<<<<< HEAD
     @Column(name = "region", nullable = false, updatable = false)
-=======
-    @Column(name = "weather_region", nullable = false, updatable = false)
->>>>>>> 589cb3d (날씨 정보 조회 배치 2)
     private WeatherRegion weatherRegion;
 
     @Convert(converter = WeatherDataTypeConverter.class)
@@ -62,11 +45,7 @@ public class WeatherInfo {
     private float value;
 
 
-<<<<<<< HEAD
     public WeatherInfo(LocalDateTime baseTime, LocalDateTime fcstTime, WeatherRegion weatherRegion, WeatherDataType weatherDataType, float value) {
-=======
-    public WeatherInfo(String baseTime, String fcstTime, WeatherRegion weatherRegion, WeatherDataType weatherDataType, String unit, float value) {
->>>>>>> 589cb3d (날씨 정보 조회 배치 2)
         this.baseTime = baseTime;
         this.fcstTime = fcstTime;
         this.weatherRegion = weatherRegion;

@@ -58,7 +58,7 @@ import static org.mockito.Mockito.when;
 public class LoadInfoBatchIntegrationTest extends BatchTestSupport {
 
     @Autowired
-    @Qualifier("loadInfoJob")
+    @Qualifier("normal_loadInfoJob")
     private Job loadInfoJob;
 
     @Override
