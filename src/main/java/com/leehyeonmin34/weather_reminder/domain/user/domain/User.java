@@ -2,9 +2,9 @@ package com.leehyeonmin34.weather_reminder.domain.user.domain;
 
 import com.leehyeonmin34.weather_reminder.domain.user.model.*;
 import com.leehyeonmin34.weather_reminder.domain.user.repository.RegionListConverter;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.leehyeonmin34.weather_reminder.global.common.model.DayTime;
+import com.leehyeonmin34.weather_reminder.global.common.model.DayTimeDBConverter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,7 +16,8 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "user")
-@NoArgsConstructor
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -50,18 +51,20 @@ public class User {
 //    @Embedded
 //    private DustNotiSetting dustNotiSetting;
 
-    @Column(name = "remind_at", updatable = true, nullable = true)
-    private byte remindAt;
+    @Convert(converter = DayTimeDBConverter.class)
+    @Column(name = "noti_time", updatable = true, nullable = true)
+    private DayTime notiTime;
 
     @Convert(converter = RegionListConverter.class)
+    @Column(name = "region_list", updatable = true, nullable = true)
     private List<Region> regionList = new ArrayList<>();
 
     @Column(name = "pause_until", updatable = true, nullable = true)
     private LocalDateTime pauseUntil;
 
 
-    public void setRemindAt(byte remindAt){
-        this.remindAt = remindAt;
+    public void setNotiTime(DayTime notiTime){
+        this.notiTime = notiTime;
     }
 
     public void addRegion(String regionCode){

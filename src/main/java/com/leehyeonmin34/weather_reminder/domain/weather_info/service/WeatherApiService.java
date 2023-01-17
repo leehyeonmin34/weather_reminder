@@ -1,5 +1,6 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.service;
 
+import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDto;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
@@ -41,25 +42,12 @@ public class WeatherApiService {
 
     private final RestTemplate restTemplate;
 
-    private final WeatherInfoRepository weatherInfoRepository;
-
-    public WeatherApiService(final RestTemplateBuilder restTemplateBuilder, final WeatherInfoRepository weatherInfoRepository) {
+    public WeatherApiService(final RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
-        this.weatherInfoRepository = weatherInfoRepository;
     }
 
-
-    public void loadAndSaveTodayWeatherInfo(){
-
-        // 모든 지역의 날씨정보에 대해 API 요청함
-        Arrays.stream(WeatherRegion.values()).forEach(weatherRegion ->
-                Arrays.stream(WeatherDataType.values()).forEach( weatherDataType ->
-                        loadAndSaveWeatherInfo(weatherRegion, weatherDataType))
-        );
-    }
-
-    private void loadAndSaveWeatherInfo(final WeatherRegion weatherRegion, final WeatherDataType weatherDataType){
-        final WeatherApiResponseDto dto = getApi(weatherRegion, weatherDataType);
+    public List<WeatherInfo> getWeatherInfo(final Region region, final WeatherDataType weatherDataType){
+        final WeatherApiResponseDto dto = getApi(region, weatherDataType);
 
         validateResponse(dto);
 
@@ -69,12 +57,10 @@ public class WeatherApiService {
         final String dayStart = WeatherApiTimeConverter.serialize(LocalDateTime.of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), 00, 00));
         final String dayEnd = WeatherApiTimeConverter.serialize(LocalDateTime.of(dayAfter.getYear(), dayAfter.getMonthValue(), dayAfter.getDayOfMonth(), 00, 00));
 
-        final List<WeatherInfo> weatherInfoList = dto.getResponse().getBody().getItems().getItem().stream()
+        return dto.getResponse().getBody().getItems().getItem().stream()
                 .filter(item -> item.getFcstTime().compareTo(dayStart) >= 0 && item.getFcstTime().compareTo(dayEnd) < 0)
-                .map(item -> new WeatherInfo(item.getBaseTime(), item.getFcstTime(), weatherRegion, weatherDataType, item.getValue()))
+                .map(item -> new WeatherInfo(item.getBaseTime(), item.getFcstTime(), region.getWeatherRegion(), weatherDataType, item.getValue()))
                 .collect(Collectors.toList());
-
-        weatherInfoRepository.saveAll(weatherInfoList);
     }
 
     private void validateResponse(final WeatherApiResponseDto dto){
@@ -87,12 +73,12 @@ public class WeatherApiService {
         }
     }
 
-    public WeatherApiResponseDto getApi(final WeatherRegion weatherRegion, final WeatherDataType weatherDataType) {
-        return getApi(URL, weatherRegion, weatherDataType);
+    public WeatherApiResponseDto getApi(final Region region, final WeatherDataType weatherDataType) {
+        return getApi(URL, region, weatherDataType);
     }
 
-    public WeatherApiResponseDto getApi(final String url, final WeatherRegion weatherRegion, final WeatherDataType weatherDataType){
-        final URI uri = getUri(url, weatherRegion, weatherDataType);
+    public WeatherApiResponseDto getApi(final String url, final Region region, final WeatherDataType weatherDataType){
+        final URI uri = getUri(url, region, weatherDataType);
 
         log.info(uri.toString());
 
@@ -104,21 +90,21 @@ public class WeatherApiService {
         return restTemplate.exchange(uri, HttpMethod.GET, httpEntity, WeatherApiResponseDto.class).getBody();
     }
 
-    public URI getUri(final String url, final WeatherRegion weatherRegion, final WeatherDataType weatherDataType){
+    public URI getUri(final String url, final Region region, final WeatherDataType weatherDataType){
 
         return UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("serviceKey", SERVICE_KEY)
-                .queryParam("numOfRows", "24")
+                .queryParam("numOfRows", "49")
                 .queryParam("dataType", "json")
                 .queryParam("baseTime", parseIntoBaseTime(LocalDateTime.now()))
-                .queryParam("dongCode", weatherRegion.getDongCode())
+                .queryParam("dongCode", region.getWeatherRegion().getDongCode())
                 .queryParam("dataTypeCd", weatherDataType.getCode())
                 .queryParam("pageNo", String.valueOf(1))
                 .build(true).toUri();
     }
 
-    public String getUriString(final String url, final WeatherRegion weatherRegion, final WeatherDataType weatherDataType){
-        return getUri(url, weatherRegion, weatherDataType).toString();
+    public String getUriString(final String url, final Region region, final WeatherDataType weatherDataType){
+        return getUri(url, region, weatherDataType).toString();
     }
 
 

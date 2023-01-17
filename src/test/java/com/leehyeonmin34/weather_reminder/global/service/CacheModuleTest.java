@@ -2,29 +2,23 @@ package com.leehyeonmin34.weather_reminder.global.service;
 
 import com.leehyeonmin34.weather_reminder.global.common.domain.CacheModuleTestEntity;
 import com.leehyeonmin34.weather_reminder.global.common.service.CacheModule;
-import com.leehyeonmin34.weather_reminder.global.config.CacheEnv;
-import lombok.Getter;
+import com.leehyeonmin34.weather_reminder.global.cache.CacheEnv;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @WebAppConfiguration

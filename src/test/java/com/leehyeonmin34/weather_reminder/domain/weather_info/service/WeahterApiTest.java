@@ -1,10 +1,11 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.service;
 
+import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDto;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResponseDtoTest;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
-import com.leehyeonmin34.weather_reminder.global.parent.IntegrationTest;
+import com.leehyeonmin34.weather_reminder.global.test_config.IntegrationTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,11 @@ public class WeahterApiTest extends IntegrationTest {
 
         // GIVEN
         final String URL = weatherApiService.URL;
-        final WeatherRegion weatherRegion = WeatherRegion.SEOUL;
+        final Region region = Region.SEOUL;
         final WeatherDataType weatherDataType = WeatherDataType.TEMP;
 
         // WHEN
-        WeatherApiResponseDto response = weatherApiService.getApi(URL, weatherRegion, weatherDataType);
+        WeatherApiResponseDto response = weatherApiService.getApi(URL, region, weatherDataType);
 
         // THEN
         System.out.println(response);

@@ -1,0 +1,5 @@
+# default 공통 설정
+spring:
+  batch:
+    job:
+      names: NONE

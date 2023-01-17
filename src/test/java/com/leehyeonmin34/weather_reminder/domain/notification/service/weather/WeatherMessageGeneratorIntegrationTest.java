@@ -5,32 +5,21 @@ import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInfoListBuilder;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoList;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherInfoRepository;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherInfoService;
-import com.leehyeonmin34.weather_reminder.global.common.service.FutureHandler;
-import com.leehyeonmin34.weather_reminder.global.parent.IntegrationTest;
+import com.leehyeonmin34.weather_reminder.global.test_config.IntegrationTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @Slf4j
@@ -39,38 +28,13 @@ public class WeatherMessageGeneratorIntegrationTest extends IntegrationTest {
     @Autowired
     WeatherNotiGenerator weatherNotiGenerator;
 
-//    @Spy
-//    HotMessageGenerator hotMessageGenerator;
-//
-//    @Spy
-//    RainMessageGenerator rainMessageGenerator;
-//
-//    @Spy
-//    ColdMessageGenerator coldMessageGenerator;
-//
-//    @Spy
-//    List<WeatherMessageGenerator> msgGenerators = new ArrayList<>();
-//
-//    @Spy
-//    FutureHandler futureHandler;
-//
-//    @Spy
-//    WeatherInfoService weatherInfoService;
-
     @MockBean
     WeatherInfoRepository weatherInfoRepository;
 
     @BeforeEach
     private void init(){
-//        setupDepedancy();
         setupRepositoryMocking();
     }
-
-//    private void setupDepedancy(){
-//        msgGenerators.add(hotMessageGenerator);
-//        msgGenerators.add(coldMessageGenerator);
-//        msgGenerators.add(rainMessageGenerator);
-//    }
 
     private void setupRepositoryMocking(){
         // 서울 날씨 정보 셋업

@@ -1,8 +1,8 @@
 package com.leehyeonmin34.weather_reminder.domain.user.service;
 
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
-import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
 import com.leehyeonmin34.weather_reminder.domain.user.repository.UserRepository;
+import com.leehyeonmin34.weather_reminder.global.common.model.DayTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +24,9 @@ public class GeneralNotiSettingService {
         user.removeRegion(regionCode);
     }
 
-    public void setRemindTime(final Long userId, final Byte remindTime){
+    public void setRemindTime(final Long userId, final DayTime remindTime){
         final User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
-        user.setRemindAt(remindTime);
+        user.setNotiTime(remindTime);
     }
 
     public void pauseReminding(final Long userId, final Long pauseDays){

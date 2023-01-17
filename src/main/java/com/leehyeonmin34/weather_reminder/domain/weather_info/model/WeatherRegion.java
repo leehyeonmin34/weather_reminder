@@ -12,7 +12,7 @@ import java.util.Arrays;
 public enum WeatherRegion {
 
     SEOUL("서울", "1100000000"),
-    BUSAN("부산", "XXX"),
+    BUSAN("부산", "2600000000"),
     ;
 
     private final String desc;

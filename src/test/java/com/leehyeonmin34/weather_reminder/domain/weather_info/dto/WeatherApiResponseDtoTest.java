@@ -3,7 +3,7 @@ package com.leehyeonmin34.weather_reminder.domain.weather_info.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leehyeonmin34.weather_reminder.WeatherReminderApplication;
-import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
+import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

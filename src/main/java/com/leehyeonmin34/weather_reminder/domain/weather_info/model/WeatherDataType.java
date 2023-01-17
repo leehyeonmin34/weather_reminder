@@ -13,7 +13,6 @@ public enum WeatherDataType {
 
     TEMP("온도", "Temp", "C"),
     RAIN("강수량", "Rain", "mm"),
-
     ;
 
     private final String desc;
