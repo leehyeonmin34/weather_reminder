@@ -5,7 +5,7 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
-import com.leehyeonmin34.weather_reminder.global.parent.RepositoryTestWithoutTransaction;
+import com.leehyeonmin34.weather_reminder.global.test_config.RepositoryTestWithoutTransaction;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

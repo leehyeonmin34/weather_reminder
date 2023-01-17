@@ -1,5 +1,6 @@
 package com.leehyeonmin34.weather_reminder.domain.notification.service.weather;
 
+import com.leehyeonmin34.weather_reminder.domain.notification.service.today_weather.TodayWeatherURLMessageGenerator;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInfoListBuilder;
@@ -7,7 +8,7 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoL
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherInfoService;
 import com.leehyeonmin34.weather_reminder.global.common.service.FutureHandler;
-import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
+import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,6 +65,7 @@ public class WeatherMessageGeneratorTest extends ServiceTest {
         String hotMsg = hotNotiOn ? "더운 날 알림" : "";
         String coldMsg = coldNotiOn ? "추운 날 알림" : "";
         String rainMsg = rainNotiOn ? "비 알림" : "";
+        String todayWeatherURL = "오늘의 날씨 URL";
 
         when(hotMessageGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn(hotMsg);
         when(coldMessageGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn(coldMsg);
@@ -82,6 +84,7 @@ public class WeatherMessageGeneratorTest extends ServiceTest {
                 Arguments.arguments("1개 지역, 3개 알림", true, true, true, UserBuilder.buildByOneRegion(), "서울 날씨 -----------\n\n더운 날 알림\n\n추운 날 알림\n\n비 알림"),
                 Arguments.arguments("1개 지역, 2개 알림", true, true, false, UserBuilder.buildByOneRegion(), "서울 날씨 -----------\n\n더운 날 알림\n\n추운 날 알림"),
                 Arguments.arguments("1개 지역, 1개 알림", true, false, false, UserBuilder.buildByOneRegion(), "서울 날씨 -----------\n\n더운 날 알림"),
+                Arguments.arguments("1개 지역, 0개 알림", false, false, false, UserBuilder.buildByOneRegion(), ""),
                 Arguments.arguments("2개 지역, 3개 알림", true, true, true, UserBuilder.buildByTwoRegion(), "서울 날씨 -----------\n\n더운 날 알림\n\n추운 날 알림\n\n비 알림\n\n부산 날씨 -----------\n\n더운 날 알림\n\n추운 날 알림\n\n비 알림")
         );
     }

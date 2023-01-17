@@ -37,7 +37,7 @@ public class WeatherNotiGenerator implements NotiGenerator {
                 region -> CompletableFuture.supplyAsync(()
                                 -> generateMessageByRegion(user, region))
                         .orTimeout(60L, TimeUnit.SECONDS) // Time제한
-                        .exceptionally(e -> "") // TODO - 예외 발생 시 사용자에겐 메시지가 보내지지 않지만 개발자에겐 리포트 되어야 할 것
+                        .exceptionally(this::handleException)
         ).collect(Collectors.toUnmodifiableList());
 
         // future 리스트에 담긴 값들을 읽어 문자열로 조합
@@ -57,16 +57,24 @@ public class WeatherNotiGenerator implements NotiGenerator {
                 generator -> CompletableFuture.supplyAsync(()
                                 -> generator.generate(user, weatherInfoList))
                         .orTimeout(60L, TimeUnit.SECONDS) // Time제한
-                        .exceptionally(e -> "")
+                        .exceptionally(this::handleException)
         ).collect(Collectors.toUnmodifiableList());
 
-        String header = String.format("%s 날씨 -----------\n\n", region.getName());
-        // TODO - footer로 해당 지역의 날씨 URL 삽입
-
         // future 리스트에 담긴 값들을 읽어 문자열로 조합
-        return header + futureHandler.joinFutureList(msgFutures).stream()
+        final String msgString = futureHandler.joinFutureList(msgFutures).stream()
                 .filter(item -> !item.isEmpty())
                 .collect(Collectors.joining("\n\n"));
+
+        return msgString.isBlank() ? "" : generateHeader(region) + msgString;
+    }
+
+    private String generateHeader(final Region region){
+        return String.format("%s 날씨 -----------\n\n", region.getName());
+    }
+
+    private String handleException(Throwable e){
+        e.printStackTrace();
+        return "";
     }
 
 

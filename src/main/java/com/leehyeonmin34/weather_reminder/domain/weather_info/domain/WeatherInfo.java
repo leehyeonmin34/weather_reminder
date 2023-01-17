@@ -6,7 +6,9 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.Weather
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherApiTimeConverterForDB;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -15,10 +17,12 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @ToString
+@Table
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WeatherInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Convert(converter = WeatherApiTimeConverterForDB.class)
@@ -30,14 +34,14 @@ public class WeatherInfo {
     private LocalDateTime fcstTime;
 
     @Convert(converter = WeatherRegionConverter.class)
-    @Column(name = "weather_region", nullable = false, updatable = false)
+    @Column(name = "region", nullable = false, updatable = false)
     private WeatherRegion weatherRegion;
 
     @Convert(converter = WeatherDataTypeConverter.class)
-    @Column(name = "weather_data_type", nullable = false, updatable = false)
+    @Column(name = "data_type", nullable = false, updatable = false)
     private WeatherDataType weatherDataType;
 
-    @Column(name = "value", nullable = false, updatable = false)
+    @Column(name = "val", nullable = false, updatable = false)
     private float value;
 
 
@@ -57,6 +61,4 @@ public class WeatherInfo {
         this.value = value;
     }
 
-    protected WeatherInfo() {
-    }
 }

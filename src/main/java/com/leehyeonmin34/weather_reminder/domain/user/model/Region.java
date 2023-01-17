@@ -13,8 +13,8 @@ import java.util.Arrays;
 public enum Region {
     // 날씨와 미세먼지 API에서 사용되는 지역 정보들을 중심적으로 연결, 관리해주는 enum
 
-    SEOUL("서울", "000", WeatherRegion.SEOUL),
-    BUSAN("부산", "XXX", WeatherRegion.BUSAN),
+    SEOUL("서울", "1100000000", WeatherRegion.SEOUL),
+    BUSAN("부산", "2600000000", WeatherRegion.BUSAN),
     ;
 
     private final String name;

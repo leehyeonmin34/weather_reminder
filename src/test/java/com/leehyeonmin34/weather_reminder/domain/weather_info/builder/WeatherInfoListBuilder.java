@@ -8,12 +8,14 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoL
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
 import lombok.RequiredArgsConstructor;
+import org.junit.Ignore;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+@Ignore
 public class WeatherInfoListBuilder {
 
     public static WeatherInfoList build(){

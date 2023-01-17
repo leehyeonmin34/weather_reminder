@@ -3,10 +3,12 @@ package com.leehyeonmin34.weather_reminder.domain.weather_info.repository;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface WeatherInfoRepository extends JpaRepository<WeatherInfo, Long> {
 
     default List<WeatherInfo> findAllTodayByWeatherRegion(final WeatherRegion weatherRegion){

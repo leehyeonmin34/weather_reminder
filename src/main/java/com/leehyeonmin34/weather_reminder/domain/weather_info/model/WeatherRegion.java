@@ -1,6 +1,5 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.model;
 
-import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
 import com.leehyeonmin34.weather_reminder.global.error.exception.InvalidEnumCodeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import java.util.Arrays;
 public enum WeatherRegion {
 
     SEOUL("서울", "1100000000"),
-    BUSAN("부산", "XXX"),
+    BUSAN("부산", "2600000000"),
     ;
 
     private final String desc;

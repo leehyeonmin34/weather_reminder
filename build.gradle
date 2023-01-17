@@ -1,7 +1,18 @@
+// queryDsl version 정보 추가
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
+}
+
+
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
+//	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.leehyeonmin34'
@@ -13,6 +24,9 @@ configurations {
 		extendsFrom annotationProcessor
 	}
 }
+
+
+
 
 repositories {
 	mavenCentral()
@@ -31,13 +45,40 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok' // 테스트 의존성 추가
 	testAnnotationProcessor 'org.projectlombok:lombok' // 테스트 의존성 추가
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' // JUnit5, Assertj, Hamcrest, Mockito, JSONassert, JsonPath
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis' // spring boot에서 redis에 대한 의존성
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: '2.7.0' // batch 작업
-	testImplementation group: 'org.springframework.batch', name: 'spring-batch-test', version: '4.3.3' // batch 테스트
 	testImplementation("org.mock-server:mockserver-netty:5.7.2")
+	testImplementation group: 'org.springframework.batch', name: 'spring-batch-test', version: '4.3.3' // batch 테스트
+	implementation 'org.springframework.batch:spring-batch-integration'
+	runtimeOnly 'com.h2database:h2'
+
+	// queryDSL 설정
+	implementation "com.querydsl:querydsl-jpa"
+	implementation "com.querydsl:querydsl-core"
+	implementation "com.querydsl:querydsl-collections"
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api" // java.lang.NoClassDefFoundError (javax.annotation.Generated) 대응 코드
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api" // java.lang.NoClassDefFoundError (javax.annotation.Entity) 대응 코드
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// querydsl에서 사용할 경로 설정
+def generated = "src/main/generated"
+
+// querydsl QClass 파일 생성 위치를 지정
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+// java source set 에 querydsl QClass 위치 추가
+sourceSets {
+	main.java.srcDirs += [ generated ]
+}
+
+// gradle clean 시에 QClass 디렉토리 삭제
+clean {
+	delete file(generated)
 }

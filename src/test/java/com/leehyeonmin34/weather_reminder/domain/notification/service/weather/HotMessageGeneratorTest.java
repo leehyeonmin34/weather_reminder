@@ -6,7 +6,7 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInf
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoList;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
-import com.leehyeonmin34.weather_reminder.global.parent.ServiceTest;
+import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

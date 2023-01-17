@@ -1,0 +1,41 @@
+#default 공통설정
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+    defer-datasource-initialization: true
+    generate-ddl: true
+    hibernate.ddl-auto: update
+    show-sql:  true
+
+--- # local 설정
+spring:
+  config:
+    activate:
+      on-profile: "db-local"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/weather_reminder?rewriteBatchedStatements=true&profileSQL=true&logger=Slf4JLogger&maxQuerySizeToLog=999999
+    username: connectuser
+    password: connect123!@#
+    initialization-mode: always
+
+--- # test 설정
+spring:
+  config:
+    activate:
+      on-profile: "db-test"
+#  jpa:
+#    hibernate.ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true # H2 Console을 사용할지 여부 (H2 DB를 UI로 제공해주는 기능)
+      path: /h2-console #H2 Console의 Path('/h2-console'이 기본값임)
+  datasource:
+    driver-class-name: org.h2.Driver  # Database를 H2로 사용하겠다.
+    url: jdbc:h2:mem:testdb;MODE=MySQL;NON_KEYWORDS=USER  # H2 접속 정보
+    username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
+    password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
+

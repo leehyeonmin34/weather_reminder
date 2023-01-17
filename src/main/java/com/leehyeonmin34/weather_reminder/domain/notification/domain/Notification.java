@@ -1,7 +1,6 @@
 package com.leehyeonmin34.weather_reminder.domain.notification.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +9,8 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Getter
 @Entity
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notification {
 
     @Id
