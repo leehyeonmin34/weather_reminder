@@ -1,12 +1,9 @@
 package com.leehyeonmin34.weather_reminder.domain.user.repository;
 
-import com.leehyeonmin34.weather_reminder.WeatherReminderApplication;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.QUser;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.QWeatherInfo;
 import com.leehyeonmin34.weather_reminder.global.config.TestProfile;
-import com.leehyeonmin34.weather_reminder.global.test_config.IntegrationTest;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;

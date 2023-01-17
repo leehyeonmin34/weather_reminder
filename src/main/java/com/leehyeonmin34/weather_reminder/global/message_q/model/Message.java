@@ -53,8 +53,4 @@ public class Message<T> {
     public void takeFail(Exception e){
         failHandler.handleFail(this, e);
     }
-
-
-
-
 }

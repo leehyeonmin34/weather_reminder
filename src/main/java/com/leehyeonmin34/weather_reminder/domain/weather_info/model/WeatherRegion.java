@@ -1,6 +1,5 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.model;
 
-import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
 import com.leehyeonmin34.weather_reminder.global.error.exception.InvalidEnumCodeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

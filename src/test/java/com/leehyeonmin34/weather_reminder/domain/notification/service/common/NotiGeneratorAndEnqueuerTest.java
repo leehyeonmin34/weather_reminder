@@ -87,7 +87,7 @@ public class NotiGeneratorAndEnqueuerTest extends ServiceTest {
     }
 
 
-    private static Stream<Arguments> generateTestConditions(){
+    private static Stream<Arguments> generateTestConditions() {
         return Stream.of(
                 Arguments.arguments("날씨 알림, 먼지 알림", true, true, "날씨 알림\n\n먼지 알림\n\n오늘 날씨 URL"),
                 Arguments.arguments("날씨 알림", true, false, "날씨 알림\n\n오늘 날씨 URL"),

@@ -9,12 +9,13 @@ import javax.persistence.Converter;
 @Converter
 @Component
 public class WeatherRegionConverter implements AttributeConverter<WeatherRegion, String> {
-
-    public String convertToDatabaseColumn(final WeatherRegion attribute) {
+    @Override
+    public String convertToDatabaseColumn(WeatherRegion attribute) {
         return attribute.getDongCode();
     }
 
-    public WeatherRegion convertToEntityAttribute(final String dbData) {
+    @Override
+    public WeatherRegion convertToEntityAttribute(String dbData) {
         return WeatherRegion.of(dbData);
     }
 }

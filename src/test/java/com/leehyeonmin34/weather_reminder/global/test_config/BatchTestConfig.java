@@ -15,8 +15,4 @@ import org.springframework.test.context.ActiveProfiles;
 @EnableAutoConfiguration
 @EnableBatchProcessing
 @ActiveProfiles(TestProfile.TEST)
-public class BatchTestConfig {
-
-
-
-}
+public class BatchTestConfig { }

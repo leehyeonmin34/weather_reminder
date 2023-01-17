@@ -26,6 +26,5 @@ public class NotiMessageHandler implements MessageHandler {
         notiSender.send((Notification) message.getContent());
 
         log.info("메시지가 NotiMessageHandler에 의해 처리되었습니다.");
-
     }
 }

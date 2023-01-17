@@ -6,6 +6,8 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiService;
+import com.leehyeonmin34.weather_reminder.global.batch.JdbcBatchListItemWriter;
+import com.leehyeonmin34.weather_reminder.global.batch.LoadInfoItemSqlParameterSourceProvider;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +39,6 @@ import java.util.stream.Stream;
 @Configuration
 public class LoadInfoBatch {
 
-//    private final NotiGeneratorAndEnqueuer notiGeneratorAndEnqueuer;
     private final static String JOB_NAME = "normal";
     private final DataSource dataSource;
     private final WeatherApiService weatherApiService;
@@ -120,4 +121,3 @@ public class LoadInfoBatch {
 
 
 }
-

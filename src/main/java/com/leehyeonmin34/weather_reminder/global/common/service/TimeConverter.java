@@ -1,4 +1,4 @@
-package com.leehyeonmin34.weather_reminder.global;
+package com.leehyeonmin34.weather_reminder.global.common.service;
 
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import org.springframework.stereotype.Component;

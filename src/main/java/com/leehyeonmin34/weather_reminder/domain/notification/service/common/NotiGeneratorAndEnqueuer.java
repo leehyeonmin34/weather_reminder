@@ -4,7 +4,6 @@ import com.leehyeonmin34.weather_reminder.domain.notification.domain.Notificatio
 import com.leehyeonmin34.weather_reminder.domain.notification.service.today_weather.TodayWeatherURLMessageGenerator;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.global.message_q.model.Message;
-import com.leehyeonmin34.weather_reminder.global.message_q.model.MessageType;
 import com.leehyeonmin34.weather_reminder.global.message_q.service.MessageFactory;
 import com.leehyeonmin34.weather_reminder.global.message_q.service.MessageQ;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;

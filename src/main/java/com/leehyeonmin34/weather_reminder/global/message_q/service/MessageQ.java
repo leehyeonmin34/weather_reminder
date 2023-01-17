@@ -3,8 +3,6 @@ package com.leehyeonmin34.weather_reminder.global.message_q.service;
 import com.leehyeonmin34.weather_reminder.global.message_q.model.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;

@@ -33,9 +33,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-//@EnableAutoConfiguration
-//@SpringBootTest
-//@EnableBatchProcessing
 public class LoadInfoBatchTest extends BatchTestSupport{
 
     @Autowired
