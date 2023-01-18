@@ -1,13 +1,10 @@
-package com.leehyeonmin34.weather_reminder.global.batch;
+package com.leehyeonmin34.weather_reminder.global.batch.load_info;
 
-import com.leehyeonmin34.weather_reminder.domain.notification.service.common.NotiGeneratorAndEnqueuer;
 import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiService;
-import com.leehyeonmin34.weather_reminder.global.batch.JdbcBatchListItemWriter;
-import com.leehyeonmin34.weather_reminder.global.batch.LoadInfoItemSqlParameterSourceProvider;
+import com.leehyeonmin34.weather_reminder.global.batch.comon.JdbcBatchListItemWriter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,31 +17,35 @@ import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.integration.async.AsyncItemProcessor;
+import org.springframework.batch.integration.async.AsyncItemWriter;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.support.ListItemReader;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.TaskExecutor;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class LoadInfoBatch {
+public class AsyncLoadInfoBatch {
 
-    private final static String JOB_NAME = "normal";
+    public final static String JOB_NAME = "async";
     private final DataSource dataSource;
     private final WeatherApiService weatherApiService;
     private final LoadInfoItemSqlParameterSourceProvider loadInfoItemSqlParameterSourceProvider;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
+    private final TaskExecutor taskExecutor;
 
 
     public static final int CHUNK_SIZE = 100;
@@ -54,6 +55,7 @@ public class LoadInfoBatch {
         log.info("********** This is loadInfoJob");
         return jobBuilderFactory.get(JOB_NAME + "_loadInfoJob")
                 .incrementer(new RunIdIncrementer()) // 중복실행 가능
+                .listener(new LoadInfoBatchListener())
 //                .preventRestart() // 이 job의 중복실행 방지
                 .start(this.loadInfoJobStep())
                 .build();
@@ -64,7 +66,7 @@ public class LoadInfoBatch {
     public Step loadInfoJobStep() throws Exception {
         log.info("********** loadInfoJobStep created");
         return stepBuilderFactory.get(JOB_NAME + "_loadInfoJobStep")
-                .<RegionAndDataType, List<WeatherInfo>> chunk(CHUNK_SIZE)
+                .<RegionAndDataType, Future<List<WeatherInfo>>> chunk(CHUNK_SIZE)
                 .reader(loadInfoReader())
                 .processor(loadInfoProcessor())
                 .writer(loadInfoWriter())
@@ -85,9 +87,20 @@ public class LoadInfoBatch {
                 .collect(Collectors.toList()));
     }
 
+
     @Bean(JOB_NAME + "_loadInfoProcessor")
     @StepScope
-    public ItemProcessor<RegionAndDataType, List<WeatherInfo>> loadInfoProcessor() {
+    public AsyncItemProcessor<RegionAndDataType, List<WeatherInfo>> loadInfoProcessor(){
+        ItemProcessor<RegionAndDataType, List<WeatherInfo>> itemProcessor = normalLoadInfoProcessor();
+
+        AsyncItemProcessor<RegionAndDataType, List<WeatherInfo>> asyncItemProcessor = new AsyncItemProcessor<>();
+        asyncItemProcessor.setDelegate(itemProcessor);
+        asyncItemProcessor.setTaskExecutor(taskExecutor);
+
+        return asyncItemProcessor;
+    }
+
+    private ItemProcessor<RegionAndDataType, List<WeatherInfo>> normalLoadInfoProcessor() {
         return new ItemProcessor<RegionAndDataType, List<WeatherInfo>>() {
             @Override
             public List<WeatherInfo> process(RegionAndDataType regionAndDataType) throws Exception {
@@ -97,9 +110,19 @@ public class LoadInfoBatch {
         };
     }
 
+
     @Bean(JOB_NAME + "_loadInfoWriter")
     @StepScope
-    public JdbcBatchListItemWriter<WeatherInfo> loadInfoWriter() {
+    public AsyncItemWriter<List<WeatherInfo>> loadInfoWriter() {
+        ItemWriter<List<WeatherInfo>> itemWriter = normalLoadInfoWriter();
+
+        AsyncItemWriter<List<WeatherInfo>> asyncItemWriter = new AsyncItemWriter<>();
+        asyncItemWriter.setDelegate(itemWriter);
+
+        return asyncItemWriter;
+    }
+
+        public ItemWriter<List<WeatherInfo>> normalLoadInfoWriter() {
         log.info("********** loadInfoWriter Created");
         String sql = "insert into weather_info(base_time, fcst_time, region, data_type, val) values(:baseTime, :fcstTime, :weatherRegion, :weatherDataType, :value)";
         JdbcBatchItemWriter<WeatherInfo> itemWriter = new JdbcBatchItemWriterBuilder<WeatherInfo>()
@@ -109,8 +132,12 @@ public class LoadInfoBatch {
                 .build();
         itemWriter.afterPropertiesSet();
 
+//        return itemWriter;
         return new JdbcBatchListItemWriter<>(itemWriter);
     }
+
+
+
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
