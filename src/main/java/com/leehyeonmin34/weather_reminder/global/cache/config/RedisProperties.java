@@ -1,4 +1,4 @@
-package com.leehyeonmin34.weather_reminder.global.cache;
+package com.leehyeonmin34.weather_reminder.global.cache.config;
 
 import lombok.Getter;
 import lombok.ToString;

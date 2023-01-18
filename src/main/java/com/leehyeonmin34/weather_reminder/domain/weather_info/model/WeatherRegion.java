@@ -4,11 +4,12 @@ import com.leehyeonmin34.weather_reminder.global.error.exception.InvalidEnumCode
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 @AllArgsConstructor
 @Getter
-public enum WeatherRegion {
+public enum WeatherRegion implements Serializable {
 
     SEOUL("서울", "1100000000"),
     BUSAN("부산", "2600000000"),
