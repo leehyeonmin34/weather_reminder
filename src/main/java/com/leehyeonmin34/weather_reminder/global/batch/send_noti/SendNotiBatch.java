@@ -1,4 +1,4 @@
-package com.leehyeonmin34.weather_reminder.global.batch;
+package com.leehyeonmin34.weather_reminder.global.batch.send_noti;
 
 import com.leehyeonmin34.weather_reminder.domain.notification.domain.Notification;
 import com.leehyeonmin34.weather_reminder.domain.notification.service.common.NotiGeneratorAndEnqueuer;
@@ -58,6 +58,7 @@ public class SendNotiBatch {
                 .reader(sendNotiReader(null))
                 .processor(sendNotiProcessor(notiGeneratorAndEnqueuer))
                 .writer(sendNotiWriter())
+                .throttleLimit(8)
                 .build();
     }
 
