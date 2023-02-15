@@ -10,7 +10,7 @@ public class SnowNotiSetting implements NotiSetting {
 
     private Byte conditionTime = null;
 
-    public void changeConditionTime(Byte time){
+    public void changeConditionTime(final Byte time){
         this.conditionTime = time;
     }
 

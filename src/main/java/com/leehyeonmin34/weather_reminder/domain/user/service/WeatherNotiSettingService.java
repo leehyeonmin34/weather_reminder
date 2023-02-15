@@ -12,32 +12,32 @@ import javax.persistence.EntityNotFoundException;
 @RequiredArgsConstructor
 public class WeatherNotiSettingService {
 
-    final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    final NotiSettingUtils notiSettingUtils;
+    private final NotiSettingUtils notiSettingUtils;
 
-    public void turnOffNoti(Long userId, String notiTypeCode){
-        NotiSetting notiSetting = notiSettingUtils.findNotiSetting(userId, notiTypeCode);
+    public void turnOffNoti(final Long userId, final String notiTypeCode){
+        final NotiSetting notiSetting = notiSettingUtils.findNotiSetting(userId, notiTypeCode);
         notiSetting.turnOff();
     }
 
-    public void updateRainNoti(Long userId, Byte conditionTime) {
-        User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+    public void updateRainNoti(final Long userId, final Byte conditionTime) {
+        final User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
         user.getSnowNotiSetting().changeConditionTime(conditionTime);
     }
 
-    public void updateSnowNoti(Long userId, Byte conditionTime) {
-        User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+    public void updateSnowNoti(final Long userId, final Byte conditionTime) {
+        final User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
         user.getSnowNotiSetting().changeConditionTime(conditionTime);
     }
 
-    public void updateHotNoti(Long userId, Byte conditionCelcius) {
-        User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+    public void updateHotNoti(final Long userId, final Byte conditionCelcius) {
+        final User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
         user.getHotNotiSetting().changeConditionCelcius(conditionCelcius);
     }
 
-    public void updateColdNoti(Long userId, Byte conditionCelcius) {
-        User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+    public void updateColdNoti(final Long userId, final Byte conditionCelcius) {
+        final User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
         user.getColdNotiSetting().changeConditionCelcius(conditionCelcius);
     }
 

@@ -10,7 +10,7 @@ public class RainNotiSetting implements NotiSetting {
 
     private Byte conditionTime = null;
 
-    public void changeConditionTime(Byte conditionTime) {
+    public void changeConditionTime(final Byte conditionTime) {
         this.conditionTime = conditionTime;
     }
 
