@@ -6,7 +6,6 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoList;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherTempConverter;
-import com.leehyeonmin34.weather_reminder.global.batch.LoadInfoBatch;
 import com.leehyeonmin34.weather_reminder.global.cache.config.CacheEnv;
 import com.leehyeonmin34.weather_reminder.global.cache.service.CacheModule;
 import com.leehyeonmin34.weather_reminder.global.common.service.TimeStringifier;
