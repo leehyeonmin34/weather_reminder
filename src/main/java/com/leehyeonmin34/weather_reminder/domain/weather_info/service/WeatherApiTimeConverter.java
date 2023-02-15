@@ -17,4 +17,8 @@ public class WeatherApiTimeConverter {
         return localDateTime.format(formatter);
     }
 
+    static public String serializeToDate(final LocalDateTime localDateTime) { return serialize(localDateTime).substring(0, 8); }
+
+    static public String serializeToTime(final LocalDateTime localDateTime) { return serialize(localDateTime).substring(8); }
+
 }

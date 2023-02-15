@@ -1,4 +1,4 @@
-package com.leehyeonmin34.weather_reminder.global.batch;
+package com.leehyeonmin34.weather_reminder.global.batch.load_info;
 
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;

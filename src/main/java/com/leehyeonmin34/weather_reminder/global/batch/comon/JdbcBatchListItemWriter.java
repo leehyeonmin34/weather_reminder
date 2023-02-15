@@ -1,4 +1,4 @@
-package com.leehyeonmin34.weather_reminder.global.batch;
+package com.leehyeonmin34.weather_reminder.global.batch.comon;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

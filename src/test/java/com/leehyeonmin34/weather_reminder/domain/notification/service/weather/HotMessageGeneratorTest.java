@@ -6,12 +6,14 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInf
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoList;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
+import com.leehyeonmin34.weather_reminder.global.cache.service.CacheModule;
 import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.util.stream.Stream;
 
@@ -22,6 +24,9 @@ public class HotMessageGeneratorTest extends ServiceTest {
     @InjectMocks
     private HotMessageGenerator hotMessageGenerator;
 
+    @Mock
+    private CacheModule cacheModule;
+
     @ParameterizedTest(name = "{index} : {0}")
     @MethodSource("generateTestConditions")
     public void generateTest(String conditionName, User user, int baseCondition, String expectedResult){
@@ -30,7 +35,7 @@ public class HotMessageGeneratorTest extends ServiceTest {
         WeatherInfoList weatherInfoList = WeatherInfoListBuilder.build(WeatherRegion.SEOUL, WeatherDataType.TEMP, baseCondition);
 
         // WHEN
-        String result = hotMessageGenerator.generate(user, weatherInfoList);
+        String result = hotMessageGenerator.generateForReal(user, weatherInfoList);
 
         // THEN
         System.out.println(result);
@@ -44,8 +49,7 @@ public class HotMessageGeneratorTest extends ServiceTest {
                 "옷을 시원하게 입고 썬크림, 손풍기 등에 신경써요 !";
         return Stream.of(
                 Arguments.arguments("알림 조건 충족 - 알림 생성", UserBuilder.buildByOneRegion(), 0, expectedNormal), // 알림이 생성되는 조건
-                Arguments.arguments("알림 조건 불충족 - 알림 미생성", UserBuilder.buildByOneRegion(), -100, ""), // 알림이 생성되지 않는 조건 (조건을 만족하는 시간대가 없음)
-                Arguments.arguments("알림 미설정 - 알림 미생성", UserBuilder.buildUserNoNoti(), 0, "") // 알림이 생성되지 않는 조건 (알림이 설정되어있지 않음)
+                Arguments.arguments("알림 조건 불충족 - 알림 미생성", UserBuilder.buildByOneRegion(), -100, "") // 알림이 생성되지 않는 조건 (조건을 만족하는 시간대가 없음)
         );
     }
 }

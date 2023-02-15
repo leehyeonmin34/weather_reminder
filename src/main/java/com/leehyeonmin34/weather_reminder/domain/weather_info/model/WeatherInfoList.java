@@ -3,6 +3,7 @@ package com.leehyeonmin34.weather_reminder.domain.weather_info.model;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class WeatherInfoList {
+public class WeatherInfoList implements Serializable {
 
     private final List<WeatherInfo> tempWeatherInfoList;
 

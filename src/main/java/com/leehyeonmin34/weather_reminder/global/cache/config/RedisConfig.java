@@ -1,4 +1,4 @@
-package com.leehyeonmin34.weather_reminder.global.cache;
+package com.leehyeonmin34.weather_reminder.global.cache.config;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class RedisConfig {
 
     private final RedisProperties redisProperties;
 
-    public RedisConfig(RedisProperties redisProperties) {
+    public RedisConfig(final RedisProperties redisProperties) {
         this.redisProperties = redisProperties;
         this.host = redisProperties.getHost();
         this.port = redisProperties.getPort();
@@ -56,8 +56,14 @@ public class RedisConfig {
         Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
         cacheConfigurations.put(CacheEnv.SESSION_INFO, RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofSeconds(CacheEnv.SESSION_INFO_EXPIRE_SEC)));
-        cacheConfigurations.put(CacheEnv.TEST, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.DEFAULT_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheEnv.WEATHER_MSG_COLD, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.WEATHER_MSG_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheEnv.WEATHER_MSG_HOT, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.WEATHER_MSG_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheEnv.WEATHER_MSG_RAIN, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.WEATHER_MSG_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheEnv.TODAY_WEATHER_INFO_LIST, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.TODAY_WEATHER_INFO_LIST_EXPIRE_SEC)));
 
         return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(connectionFactory).cacheDefaults(configuration)
                 .disableCreateOnMissingCache() // cacheManager.getCache(cacheName) 했을 때, 존재하지 않는 cacheName에 대한 Cache를 생성하지 않음

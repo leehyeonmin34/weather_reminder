@@ -9,15 +9,12 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegio
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherRegionConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiService;
-import com.leehyeonmin34.weather_reminder.global.batch.LoadInfoBatch;
-import com.leehyeonmin34.weather_reminder.global.batch.LoadInfoItemSqlParameterSourceProvider;
 import com.leehyeonmin34.weather_reminder.global.test_config.BatchTestSupport;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +22,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,11 +31,14 @@ import static org.mockito.Mockito.when;
 
 public class LoadInfoBatchTest extends BatchTestSupport{
 
+    private final static String NORMAL = "normal";
+    private final static String JOB_NAME = NORMAL;
+
     @Autowired
-    @Qualifier("normal_loadInfoJob")
+    @Qualifier(JOB_NAME + "_loadInfoJob")
     private Job loadInfoJob;
 
-    @MockBean(name = "normal_loadInfoProcessor")
+    @MockBean(name = JOB_NAME + "_loadInfoProcessor")
     private ItemProcessor<LoadInfoBatch.RegionAndDataType, List<WeatherInfo>> loadInfoProcessor;
 
     @Autowired

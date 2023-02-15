@@ -5,7 +5,7 @@
 //import com.leehyeonmin34.weather_reminder.domain.session_info.exception.SessionInfoNotExistsException;
 //import com.leehyeonmin34.weather_reminder.domain.session_info.repository.SessionInfoRepository;
 //import com.leehyeonmin34.weather_reminder.global.common.service.CacheModule;
-//import com.leehyeonmin34.weather_reminder.global.cache.CacheEnv;
+//import com.leehyeonmin34.weather_reminder.global.cache.config.CacheEnv;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.context.annotation.Primary;
 //import org.springframework.stereotype.Service;
