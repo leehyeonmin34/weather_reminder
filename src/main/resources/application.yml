@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: local # 기본적으로 활성화할 profile
+    group: # profile 그룹 정의
+      local:
+        - db-local # 해당 group이 포함하는 프로파일 이름들을 적어주면 됨
+      test:
+        - db-test
+    include: # 포함될 파일들(application-XX.yml)
+      - db
+      - common
+      - batch
+      - redis

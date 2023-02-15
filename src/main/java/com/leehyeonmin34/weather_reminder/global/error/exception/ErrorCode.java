@@ -25,6 +25,10 @@ public enum ErrorCode {
 
     // NotiSetting
     INVALID_NOTI_SETTING_REQUEST(HttpStatus.INTERNAL_SERVER_ERROR.value(), "N001", "정상적이지 않은 NotiSettingRequest 파라미터입니다."),
+
+    // Open API
+    API_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "OP001", "Open API에 문제가 발생했습니다.");
+
     ;
 
     private int status;

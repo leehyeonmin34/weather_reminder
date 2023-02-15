@@ -1,5 +1,8 @@
 package com.leehyeonmin34.weather_reminder.domain.user.model;
 
+import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
+import com.leehyeonmin34.weather_reminder.global.error.exception.InvalidEnumCodeException;
+import com.leehyeonmin34.weather_reminder.global.error.exception.UnhandledEnumTypeAtSwitchException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,19 +11,28 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum Region {
+    // 날씨와 미세먼지 API에서 사용되는 지역 정보들을 중심적으로 연결, 관리해주는 enum
 
-    SEOUL("서울", "000"),
-    JEJU("제주", "999")
+    SEOUL("서울", "1100000000", WeatherRegion.SEOUL),
+    BUSAN("부산", "2600000000", WeatherRegion.BUSAN),
     ;
 
-    private String name;
-    private String code;
+    private final String name;
+    private final String code;
+    private final WeatherRegion weatherRegion;
 
-    public static Region of(String code){
+    public static Region of(final String code){
         return Arrays.stream(Region.values())
                 .filter(item -> item.getCode().equals(code))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("지역 코드 %s에 해당하는 지역이 없습니다.",code)));
+                .orElseThrow(() -> new InvalidEnumCodeException(Region.class, code));
+    }
+
+    public static Region of(final WeatherRegion weatherRegion){
+        return Arrays.stream(Region.values())
+                .filter(item -> item.getWeatherRegion().equals(weatherRegion))
+                .findAny()
+                .orElseThrow(() -> new UnhandledEnumTypeAtSwitchException(Region.class, weatherRegion.getDongCode()));
     }
 
 }

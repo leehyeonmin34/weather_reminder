@@ -20,12 +20,12 @@ public class DustNotiGenerator implements NotiGenerator {
     private final FutureHandler futureHandler;
 
     @Override
-    public String generateMessage(User user) {
-        DustInfo dustInfo = new DustInfo();
+    public String generateMessage(final User user) {
+        final DustInfo dustInfo = new DustInfo();
 
         // 여러가지의 먼지 메시지 생성을 비동기적으로 호출.
         // 결과를 담은 future들을 리스트에 삽입.
-        List<CompletableFuture<String>> msgFutures = msgGenerators.stream().map(
+        final List<CompletableFuture<String>> msgFutures = msgGenerators.stream().map(
                 generator -> CompletableFuture.supplyAsync(()
                                 -> generator.generate(user, dustInfo))
                         .orTimeout(60L, TimeUnit.SECONDS) // Time제한
