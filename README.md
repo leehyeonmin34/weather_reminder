@@ -11,14 +11,18 @@
   - 조건 온도 설정
 - 추운 날 알림
   - 조건 온도 설정
+- 알림 지역 편집
+- 알림 시간 설정
 - 알림 n일 동안 끄기
 
 <br />
 
 # 프로젝트의 주요 관심사
+- 외부 API 활용 (기상청 공공API)
 - 스레드를 할용한 비동기 처리
 - 메시지큐 활용
 - SpringBatch를 활용한 배치 작업
+
 
 ## 사용 기술
 Spring Boot, Spring Batch, Spring Data JPA, MySQL, Redis, Docker, nginx, Naver Cloud Platform
