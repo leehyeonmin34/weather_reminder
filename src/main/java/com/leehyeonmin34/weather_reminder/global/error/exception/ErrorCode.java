@@ -15,6 +15,7 @@ public enum ErrorCode {
     HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(), "C006", "Access is Denied"), // Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생
     INVALID_ENUM_CODE(HttpStatus.BAD_REQUEST.value(), "C007", "Invalid Enum Code"),
     UNHANDLED_ENUM_TYPE_AT_SWITCH(HttpStatus.INTERNAL_SERVER_ERROR.value(), "C008", "Unhandler Enum Type at Switch"),
+    EXTERNAL_API_NOT_RESPONSE(HttpStatus.REQUEST_TIMEOUT.value(), "C009", "External Api doesn't response(Timeout"),
 
     // User
     NOT_LOGGED_IN(HttpStatus.UNAUTHORIZED.value(), "U002", "로그인되지 않았습니다."),

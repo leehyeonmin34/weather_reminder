@@ -33,7 +33,6 @@ public class WeahterApiTest extends IntegrationTest {
         WeatherApiResponseDto response = weatherApiService.getApi(URL, region, weatherDataType);
 
         // THEN
-        System.out.println(response);
         WeatherApiResponseDtoTest.validateSuccess(response);
     }
 }
