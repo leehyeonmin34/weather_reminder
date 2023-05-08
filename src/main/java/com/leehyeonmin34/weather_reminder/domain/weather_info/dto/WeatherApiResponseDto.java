@@ -1,5 +1,8 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.dto;
 
+import com.leehyeonmin34.weather_reminder.global.api.exception.OpenApiResponseStatus;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -52,5 +55,6 @@ public class WeatherApiResponseDto {
         private String unit;
         private float value;
     }
+
 
 }

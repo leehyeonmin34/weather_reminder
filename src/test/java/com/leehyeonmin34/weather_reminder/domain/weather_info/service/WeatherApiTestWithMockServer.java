@@ -6,33 +6,46 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiResp
 import com.leehyeonmin34.weather_reminder.domain.weather_info.dto.WeatherApiTestResponseProvider;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
+import com.leehyeonmin34.weather_reminder.global.api.exception.OpenApiException;
+import com.leehyeonmin34.weather_reminder.global.config.RetryableRestTemplateConfiguration;
+import com.leehyeonmin34.weather_reminder.global.test_config.IntegrationTest;
 import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.MediaType;
+import org.springframework.retry.ExhaustedRetryException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.security.Provider;
 
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-@ExtendWith(SpringExtension.class)
-@RestClientTest(value = {WeatherApiService.class, WeatherApiTestResponseProvider.class})
-public class WeatherApiTestWithMockServer extends ServiceTest {
+public class WeatherApiTestWithMockServer extends IntegrationTest {
 
-
-    @Autowired
     private MockRestServiceServer mockServer;
 
-    @Autowired
     private WeatherApiService weatherApiService;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @BeforeEach
+    private void init(){
+        mockServer = MockRestServiceServer.createServer(restTemplate);
+        weatherApiService = new WeatherApiService(restTemplate);
+    }
 
     @Autowired
     private WeatherApiTestResponseProvider weatherApiTestResponseProvider;
@@ -74,6 +87,27 @@ public class WeatherApiTestWithMockServer extends ServiceTest {
 
         // THEN
         WeatherApiResponseDtoTest.validateContentFail(response);
+    }
+
+    @Test
+    @DisplayName("날씨 API - 타임아웃 재시도 횟수 초과")
+    public void WeatherApiTestFailWithRecover() throws IOException, InterruptedException {
+
+        // GIVEN
+        final String FAIL_URL = weatherApiService.HOST;
+        final String FAIL_REQUEST_URL = weatherApiService.getUriString(FAIL_URL, region, weatherDataType);
+        mockServer.expect(requestTo(FAIL_REQUEST_URL))
+                .andRespond(
+                        withSuccess(timeoutResponse(), MediaType.APPLICATION_JSON));
+
+        // WHEN - THEN
+        Assertions.assertThatThrownBy(() -> weatherApiService.getApi(FAIL_URL, region, weatherDataType))
+                .isInstanceOf(ExhaustedRetryException.class);
+    }
+
+    private String timeoutResponse() throws InterruptedException {
+        Thread.sleep(11000);
+        return "timeout";
     }
 
 }
