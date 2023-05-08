@@ -8,6 +8,7 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataT
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherInfoRepository;
 import com.leehyeonmin34.weather_reminder.global.api.exception.OpenApiException;
 import com.leehyeonmin34.weather_reminder.global.api.exception.OpenApiResponseStatus;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class WeatherApiService {
 
     public static String HOST = "http://apis.data.go.kr";
@@ -41,9 +44,9 @@ public class WeatherApiService {
 
     private final RestTemplate restTemplate;
 
-    public WeatherApiService(final RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-    }
+//    public WeatherApiService(final RestTemplateBuilder restTemplateBuilder) {
+//        this.restTemplate = restTemplateBuilder.build();
+//    }
 
     public List<WeatherInfo> getWeatherInfo(final Region region, final WeatherDataType weatherDataType) {
         final WeatherApiResponseDto dto = getApi(region, weatherDataType);
@@ -105,8 +108,6 @@ public class WeatherApiService {
     public String getUriString(final String url, final Region region, final WeatherDataType weatherDataType){
         return getUri(url, region, weatherDataType).toString();
     }
-
-
 
     private String parseIntoBaseTime(final LocalDateTime lookupTime){
         // 새벽 5시에 배치로 API를 요청한다. 최신 데이터인 전날 21시 데이터를 조회
