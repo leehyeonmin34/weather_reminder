@@ -53,6 +53,7 @@ public class WeatherInfoRepositoryTest extends RepositoryTestWithoutTransaction 
         toSave.addAll(list_3);
         toSave.addAll(list_4);
         toSave.addAll(list_5);
+        
 
         weatherInfoList = weatherInfoRepository.saveAll(toSave);
     }

@@ -77,10 +77,5 @@ public class WeatherNotiGenerator implements NotiGenerator {
         return "";
     }
 
-
-
-
-
-
 }
 

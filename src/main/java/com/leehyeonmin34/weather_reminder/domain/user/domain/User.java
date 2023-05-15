@@ -48,9 +48,6 @@ public class User {
     @AttributeOverride(name = "conditionTime", column = @Column(name = "snow_noti_condition_time"))
     private SnowNotiSetting snowNotiSetting = new SnowNotiSetting();
 
-//    @Embedded
-//    private DustNotiSetting dustNotiSetting;
-
     @Convert(converter = DayTimeDBConverter.class)
     @Column(name = "noti_time", updatable = true, nullable = true)
     private DayTime notiTime;
