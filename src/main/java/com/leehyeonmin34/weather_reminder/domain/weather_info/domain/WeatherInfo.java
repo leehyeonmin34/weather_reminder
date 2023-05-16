@@ -28,7 +28,18 @@ public class WeatherInfo implements Serializable{
     @Column(name = "base_time", nullable = false, updatable = false)
     private LocalDateTime baseTime;
 
-    @Getter
+    @Convert(converter = WeatherApiTimeConverterForDB.class)
+    @Column(name = "fcst_time", nullable = false, updatable = false)
+    private LocalDateTime fcstTime;
+
+    @Convert(converter = WeatherRegionConverter.class)
+    @Column(name = "weather_region", nullable = false, updatable = false)
+    private WeatherRegion weatherRegion;
+
+    @Convert(converter = WeatherDataTypeConverter.class)
+    @Column(name = "data_type", nullable = false, updatable = false)
+    private WeatherDataType weatherDataType;
+
     @Column(name = "val", nullable = false, updatable = false)
     private float value;
 
