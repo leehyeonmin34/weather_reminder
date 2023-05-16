@@ -97,7 +97,7 @@ public class LoadInfoBatch {
     @StepScope
     public JdbcBatchListItemWriter<WeatherInfo> loadInfoWriter() {
         log.info("********** loadInfoWriter Created");
-        String sql = "insert into weather_info(base_time, fcst_time, region, data_type, val) values(:baseTime, :fcstTime, :weatherRegion, :weatherDataType, :value)";
+        String sql = "insert into weather_info(base_time, fcst_time, weather_region, data_type, val) values(:baseTime, :fcstTime, :weatherRegion, :weatherDataType, :value)";
         JdbcBatchItemWriter<WeatherInfo> itemWriter = new JdbcBatchItemWriterBuilder<WeatherInfo>()
                 .dataSource(dataSource)
                 .itemSqlParameterSourceProvider(loadInfoItemSqlParameterSourceProvider)

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class WeatherInfo implements Serializable {
+public class WeatherInfo implements Serializable{
 
     @Getter
     @EmbeddedId
@@ -31,7 +31,6 @@ public class WeatherInfo implements Serializable {
     @Getter
     @Column(name = "val", nullable = false, updatable = false)
     private float value;
-
 
     public WeatherInfo(LocalDateTime baseTime, LocalDateTime fcstTime, WeatherRegion weatherRegion, WeatherDataType weatherDataType, float value) {
         this.baseTime = baseTime;
