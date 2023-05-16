@@ -11,3 +11,5 @@ spring:
       - common
       - batch
       - redis
+#  spring.jpa.properties.hibernate.jdbc.batch_size=개수
+#  jdbc:mysql:://DB주소:포트/스키마?rewriteBatchedStatements=true

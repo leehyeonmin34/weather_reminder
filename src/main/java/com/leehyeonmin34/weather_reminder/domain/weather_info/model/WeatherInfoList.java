@@ -24,12 +24,12 @@ public class WeatherInfoList implements Serializable {
 
         this.tempWeatherInfoList = weatherInfoList.stream()
                 .filter(item -> item.getWeatherDataType() == WeatherDataType.TEMP)
-                .sorted(Comparator.comparing(WeatherInfo::getFcstTime))
+                .sorted(Comparator.comparing(weatherInfo -> weatherInfo.getFcstTime()))
                 .collect(Collectors.toUnmodifiableList());
 
         this.rainWeatherInfoList = weatherInfoList.stream()
                 .filter(item -> item.getWeatherDataType() == WeatherDataType.RAIN)
-                .sorted(Comparator.comparing(WeatherInfo::getFcstTime))
+                .sorted(Comparator.comparing(weatherInfo-> weatherInfo.getFcstTime()))
                 .collect(Collectors.toUnmodifiableList());
     }
 

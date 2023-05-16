@@ -12,6 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles(TestProfile.TEST)
+@ActiveProfiles(TestProfile.LOCAL)
 public class RepositoryTestWithoutTransaction {
 }

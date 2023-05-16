@@ -6,10 +6,7 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.Weather
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherApiTimeConverterForDB;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -35,7 +32,7 @@ public class WeatherInfo implements Serializable {
     private LocalDateTime fcstTime;
 
     @Convert(converter = WeatherRegionConverter.class)
-    @Column(name = "region", nullable = false, updatable = false)
+    @Column(name = "weather_region", nullable = false, updatable = false)
     private WeatherRegion weatherRegion;
 
     @Convert(converter = WeatherDataTypeConverter.class)

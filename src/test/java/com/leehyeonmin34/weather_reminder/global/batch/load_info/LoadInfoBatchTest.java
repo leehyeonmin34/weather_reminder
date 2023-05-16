@@ -14,8 +14,6 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.item.ItemProcessor;
