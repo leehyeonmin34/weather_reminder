@@ -6,7 +6,6 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataT
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
 import com.leehyeonmin34.weather_reminder.global.test_config.RepositoryTestWithoutTransaction;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +22,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@Slf4j
+
 public class WeatherInfoRepositoryTest extends RepositoryTestWithoutTransaction {
 
     @Autowired
@@ -58,7 +57,7 @@ public class WeatherInfoRepositoryTest extends RepositoryTestWithoutTransaction 
 
     @AfterEach
     public void rollback(){
-        weatherInfoRepository.deleteAllInBatch(weatherInfoList);
+        weatherInfoRepository.deleteAll(weatherInfoList);
     }
 
     @ParameterizedTest(name = "{index} : 특정 지역의 오늘 날씨 정보 조회 - {0}")
@@ -71,7 +70,7 @@ public class WeatherInfoRepositoryTest extends RepositoryTestWithoutTransaction 
 
         // THEN - 오늘의 정보만 조회되는지 확인
         then(result.size()).isEqualTo(expectedResultCount);
-        result.forEach(item -> isToday(item.getFcstTime()));
+        result.stream().forEach(item -> isToday(item.getFcstTime()));
     }
 
     private void isToday(LocalDateTime time){
