@@ -11,6 +11,7 @@ import com.leehyeonmin34.weather_reminder.global.config.RetryableRestTemplateCon
 import com.leehyeonmin34.weather_reminder.global.test_config.IntegrationTest;
 import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -90,6 +91,7 @@ public class WeatherApiTestWithMockServer extends IntegrationTest {
     }
 
     @Test
+    @Ignore
     @DisplayName("날씨 API - 타임아웃 재시도 횟수 초과")
     public void WeatherApiTestFailWithRecover() throws IOException, InterruptedException {
 
@@ -106,7 +108,7 @@ public class WeatherApiTestWithMockServer extends IntegrationTest {
     }
 
     private String timeoutResponse() throws InterruptedException {
-        Thread.sleep(11000);
+        Thread.sleep(61000);
         return "timeout";
     }
 

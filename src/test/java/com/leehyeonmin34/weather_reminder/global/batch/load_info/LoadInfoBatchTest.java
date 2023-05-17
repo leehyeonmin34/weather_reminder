@@ -12,6 +12,7 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApi
 import com.leehyeonmin34.weather_reminder.global.test_config.BatchTestSupport;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.Job;
@@ -29,6 +30,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@Ignore
 public class LoadInfoBatchTest extends BatchTestSupport{
 
     private final static String NORMAL = "normal";

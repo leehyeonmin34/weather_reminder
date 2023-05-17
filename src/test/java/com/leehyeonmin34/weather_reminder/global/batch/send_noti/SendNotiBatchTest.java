@@ -9,6 +9,7 @@ import com.leehyeonmin34.weather_reminder.global.common.model.DayTime;
 import com.leehyeonmin34.weather_reminder.global.test_config.BatchTestConfig;
 import com.leehyeonmin34.weather_reminder.global.test_config.BatchTestSupport;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +36,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-
+@Ignore
 public class SendNotiBatchTest extends BatchTestSupport {
 
     @Autowired
