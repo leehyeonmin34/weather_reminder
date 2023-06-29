@@ -6,6 +6,7 @@ import com.leehyeonmin34.weather_reminder.global.message_q.service.handler.Messa
 import com.leehyeonmin34.weather_reminder.global.message_q.service.handler.NotiMessageHandler;
 import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -29,7 +28,7 @@ import static org.mockito.Mockito.*;
 public class MessageQCustomerTest extends ServiceTest {
 
     @Autowired
-    MessageConsumer messageConsumer;
+    MessageConsumerImpl messageConsumer;
 
     @Autowired
     MessageFactory messageFactory;
@@ -43,9 +42,19 @@ public class MessageQCustomerTest extends ServiceTest {
     @MockBean
     private NotiMessageHandler notiMessageHandler;
 
+    private Long start;
+    private Long end;
+
     @BeforeEach
     private void init(){
         messageHandlerList.add(notiMessageHandler);
+        start = System.currentTimeMillis();
+    }
+
+    @AfterEach
+    private void end(){
+        end = System.currentTimeMillis();
+        log.info(String.format("소요시간 : %d ms", end - start));
     }
 
     @Test

@@ -1,17 +1,17 @@
 package com.leehyeonmin34.weather_reminder.global.message_q.service;
 
 import com.leehyeonmin34.weather_reminder.global.message_q.model.Message;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.SynchronousQueue;
 
 @Component
 @ToString
-@RequiredArgsConstructor
+@Slf4j
 public class MessageQ {
 
     private final Queue<Message> queue = new ConcurrentLinkedQueue<>();
