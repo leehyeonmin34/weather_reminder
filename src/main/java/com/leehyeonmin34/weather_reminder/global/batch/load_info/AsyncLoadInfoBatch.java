@@ -132,7 +132,6 @@ public class AsyncLoadInfoBatch {
                 .build();
         itemWriter.afterPropertiesSet();
 
-//        return itemWriter;
         return new JdbcBatchListItemWriter<>(itemWriter);
     }
 
