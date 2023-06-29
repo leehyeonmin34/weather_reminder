@@ -23,6 +23,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+
 @Slf4j
 @SpringBootTest
 public class MessageQCustomerTest extends ServiceTest {
