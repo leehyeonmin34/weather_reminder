@@ -19,7 +19,7 @@
 
 
 ## 프로젝트 구조
-<img width="820" alt="image" src="https://github.com/leehyeonmin34/dambae200/assets/66104031/5af69b53-6930-48f0-af10-b573d4b5ad04">
+<img width="1213" alt="image" src="https://github.com/leehyeonmin34/dambae200/assets/66104031/f261a052-a325-4471-bb77-3916ce78acf9">
 
 이 앱은 사용자가 알림을 설정할 수 있게 하는 API와 알림을 전송하기 위한 2개의 배치로 구성되어있습니다.
 
