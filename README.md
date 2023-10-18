@@ -43,6 +43,7 @@
 - Spring Boot 
 - Spring Batch
 - Spring Data JPA
+- QueryDSL
 - MySQL
 - Redis
 - nginx
