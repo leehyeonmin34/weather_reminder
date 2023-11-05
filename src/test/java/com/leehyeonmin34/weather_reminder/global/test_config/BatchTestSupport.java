@@ -44,7 +44,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @EnableAutoConfiguration
-@ActiveProfiles(TestProfile.TEST)
+@ActiveProfiles(TestProfile.LOCAL)
 public abstract class BatchTestSupport {
 
     @Autowired

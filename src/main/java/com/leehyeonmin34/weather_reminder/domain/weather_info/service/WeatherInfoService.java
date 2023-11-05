@@ -27,7 +27,7 @@ public class WeatherInfoService {
     public WeatherInfoList getWeatherInfoListToday(final WeatherRegion weatherRegion){
 
         // 캐시 조회를 위한 key. 지역코드 + 날짜
-        final String key = weatherRegion.getDongCode() + WeatherApiTimeConverter.serializeToDate(LocalDateTime.now());
+        final String key = weatherRegion.getDongCode() + WeatherApiTimeStringConverter.serializeToDate(LocalDateTime.now());
 
         // 날짜를 key로 해당 날짜&지역의 모든 날씨 정보를 조회
         return cacheModule.getCacheOrLoad(CacheEnv.TODAY_WEATHER_INFO_LIST

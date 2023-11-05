@@ -5,7 +5,7 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataT
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherRegionConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherApiTimeConverterForDB;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeStringConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -52,8 +52,8 @@ public class WeatherInfo implements Serializable {
     }
 
     public WeatherInfo(String baseTime, String fcstTime, WeatherRegion weatherRegion, WeatherDataType weatherDataType, float value) {
-        this.baseTime = WeatherApiTimeConverter.parse(baseTime);
-        this.fcstTime = WeatherApiTimeConverter.parse(fcstTime);
+        this.baseTime = WeatherApiTimeStringConverter.parse(baseTime);
+        this.fcstTime = WeatherApiTimeStringConverter.parse(fcstTime);
         this.weatherRegion = weatherRegion;
         this.weatherDataType = weatherDataType;
         this.value = value;

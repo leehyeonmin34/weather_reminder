@@ -3,8 +3,8 @@ package com.leehyeonmin34.weather_reminder.domain.notification.service.weather;
 import com.leehyeonmin34.weather_reminder.domain.notification.model.NotiContentType;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoList;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeStringConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherTempConverter;
 import com.leehyeonmin34.weather_reminder.global.cache.config.CacheEnv;
 import com.leehyeonmin34.weather_reminder.global.cache.service.CacheModule;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -36,7 +35,7 @@ public class ColdMessageGenerator implements WeatherMessageGenerator{
             return "";
 
         // 캐시 조회 위한 키 (날짜 + 조건). 같은 날짜와 조건을 가진 사용자라면 캐시에 있는 알림 메시지를 그대로 가져올 수 있음
-        final String key = WeatherApiTimeConverter.serializeToDate(LocalDateTime.now()) + user.getColdNotiSetting().getConditionCelcius();
+        final String key = WeatherApiTimeStringConverter.serializeToDate(LocalDateTime.now()) + user.getColdNotiSetting().getConditionCelcius();
 
         return cacheModule.getCacheOrLoad(CacheEnv.WEATHER_MSG_COLD
                 , key
