@@ -5,6 +5,7 @@ import com.leehyeonmin34.weather_reminder.global.api.exception.OpenApiResponseSt
 import com.leehyeonmin34.weather_reminder.global.common.StandardResponse;
 import com.leehyeonmin34.weather_reminder.global.error.ErrorResponse;
 import com.leehyeonmin34.weather_reminder.global.error.exception.ErrorCode;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
@@ -29,8 +30,8 @@ public class RetryableRestTemplateConfiguration {
     @Bean(name = "restTemplate")
     public RestTemplate retryableRestTemplate() {
         SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-        clientHttpRequestFactory.setReadTimeout(2000);
-        clientHttpRequestFactory.setConnectTimeout(500);
+        clientHttpRequestFactory.setReadTimeout(20000);
+        clientHttpRequestFactory.setConnectTimeout(5000);
 
         RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory) {
             @Override

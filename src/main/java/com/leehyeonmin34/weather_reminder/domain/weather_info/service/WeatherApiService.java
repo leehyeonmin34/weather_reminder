@@ -23,6 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,21 +33,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class WeatherApiService {
 
-    public static String HOST = "http://apis.data.go.kr";
+    public static final String HOST = "http://apis.data.go.kr";
 
-    public static String RESOURCE_PATH = "/1360000/NwpModelInfoService/getLdapsUnisArea";
+    public static final String RESOURCE_PATH = "/1360000/NwpModelInfoService/getLdapsUnisArea";
 
-    public static String URL = HOST + RESOURCE_PATH;
+    public static final String URL = HOST + RESOURCE_PATH;
 
-    public static String SERVICE_KEY = "pe8XHm8%2FGHK4tZYj1JjMgKqNLAq%2FvEGui%2Feavz5uDz%2Bmm%2BfBk0aurh6fawL0PNqexuMpmlAGv3qcW8wRMGoKGQ%3D%3D";
-
-    public static String DECODED_SERVICE_KEY = URLDecoder.decode(SERVICE_KEY, Charset.forName("UTF-8"));
+    public static final String SERVICE_KEY = "pe8XHm8%2FGHK4tZYj1JjMgKqNLAq%2FvEGui%2Feavz5uDz%2Bmm%2BfBk0aurh6fawL0PNqexuMpmlAGv3qcW8wRMGoKGQ%3D%3D";
 
     private final RestTemplate restTemplate;
-
-//    public WeatherApiService(final RestTemplateBuilder restTemplateBuilder) {
-//        this.restTemplate = restTemplateBuilder.build();
-//    }
 
     public List<WeatherInfo> getWeatherInfo(final Region region, final WeatherDataType weatherDataType) {
         final WeatherApiResponseDto dto = getApi(region, weatherDataType);
