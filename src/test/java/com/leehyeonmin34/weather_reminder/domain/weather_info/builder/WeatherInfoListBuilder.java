@@ -34,29 +34,20 @@ public class WeatherInfoListBuilder {
         String baseDateString = WeatherApiTimeConverter.serialize(baseDate).substring(0, 8);
         String reportedDate = WeatherApiTimeConverter.serialize(baseDate.minusDays(1)).substring(0, 8);
 
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "0500", region, dataType, baseCondition - 5));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "0600", region, dataType, baseCondition - 4));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "0700", region, dataType, baseCondition - 3));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "0800", region, dataType, baseCondition - 2));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "0900", region, dataType, baseCondition - 1));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1000", region, dataType, baseCondition + 0));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1100", region, dataType, baseCondition + 1));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1200", region, dataType, baseCondition + 2));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1300", region, dataType, baseCondition + 3));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1400", region, dataType, baseCondition + 4));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1500", region, dataType, baseCondition + 5));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1600", region, dataType, baseCondition + 6));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1700", region, dataType, baseCondition + 7));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1800", region, dataType, baseCondition + 6));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "1900", region, dataType, baseCondition + 5));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "2000", region, dataType, baseCondition + 4));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "2100", region, dataType, baseCondition + 3));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "2200", region, dataType, baseCondition + 2));
-        temp.add(new WeatherInfo(reportedDate + "2100", baseDateString + "2300", region, dataType, baseCondition + 1));
+        int[] deltaNums = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1};
+        int deltaNumsLength = deltaNums.length;
+        String reportDateTime = reportedDate + "2100";
+        int startTime = 5;
+
+        for(int i = 0; i < deltaNumsLength; i++)
+            temp.add(new WeatherInfo(reportDateTime, baseDateString + convertToString(startTime + i) + "00", region, dataType, baseCondition + deltaNums[i]));
 
         return new WeatherInfoList(region, temp);
     }
 
+    private static String convertToString(int time){
+        return time < 10 ? "0" + String.valueOf(time) : String.valueOf(time);
+    }
 
 
 
