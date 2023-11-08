@@ -11,7 +11,7 @@ spring:
           batch_size: 100
     defer-datasource-initialization: true
     generate-ddl: true
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: create
     show-sql:  true
 
 --- # local 설정
@@ -25,6 +25,7 @@ spring:
     username: connectuser
     password: connect123!@#
     initialization-mode: always
+
 
 --- # test 설정
 spring:

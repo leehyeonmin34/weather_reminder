@@ -4,17 +4,16 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInf
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeStringConverter;
 import com.leehyeonmin34.weather_reminder.global.test_config.RepositoryTestWithoutTransaction;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +73,8 @@ public class WeatherInfoRepositoryTest extends RepositoryTestWithoutTransaction 
     }
 
     private void isToday(LocalDateTime time){
-        final String timeDay = WeatherApiTimeConverter.serialize(time).substring(0, 8);
-        final String today = WeatherApiTimeConverter.serialize(LocalDateTime.now()).substring(0,8);
+        final String timeDay = WeatherApiTimeStringConverter.serialize(time).substring(0, 8);
+        final String today = WeatherApiTimeStringConverter.serialize(LocalDateTime.now()).substring(0,8);
 
         then(timeDay).isEqualTo(today);
     }

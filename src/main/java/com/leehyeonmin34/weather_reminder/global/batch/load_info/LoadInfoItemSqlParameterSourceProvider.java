@@ -1,6 +1,7 @@
 package com.leehyeonmin34.weather_reminder.global.batch.load_info;
 
 import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherApiTimeConverterForDB;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherDataTypeConverter;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherRegionConverter;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +18,15 @@ public class LoadInfoItemSqlParameterSourceProvider implements ItemSqlParameterS
 
     private final WeatherDataTypeConverter weatherDataTypeConverter;
 
+    private final WeatherApiTimeConverterForDB weatherApiTimeConverter;
+
     @Override
     public SqlParameterSource createSqlParameterSource(final WeatherInfo weatherInfo) {
         return new MapSqlParameterSource()
                 .addValue("weatherRegion", weatherRegionConverter.convertToDatabaseColumn(weatherInfo.getWeatherRegion()))
                 .addValue("weatherDataType", weatherDataTypeConverter.convertToDatabaseColumn(weatherInfo.getWeatherDataType()))
-                .addValue("baseTime", weatherInfo.getBaseTime())
-                .addValue("fcstTime", weatherInfo.getFcstTime())
+                .addValue("baseTime", weatherApiTimeConverter.convertToDatabaseColumn(weatherInfo.getBaseTime()))
+                .addValue("fcstTime", weatherApiTimeConverter.convertToDatabaseColumn(weatherInfo.getFcstTime()))
                 .addValue("value", weatherInfo.getValue())
                 ;
     }

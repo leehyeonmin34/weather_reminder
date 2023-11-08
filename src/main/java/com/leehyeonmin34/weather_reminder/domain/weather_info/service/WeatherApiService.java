@@ -51,8 +51,8 @@ public class WeatherApiService {
         // 조회 당일의 날씨만 저장하기 위한 기준 지정
         final LocalDateTime now = LocalDateTime.now();
         final LocalDateTime dayAfter = now.plusDays(1);
-        final String dayStart = WeatherApiTimeConverter.serialize(LocalDateTime.of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), 00, 00));
-        final String dayEnd = WeatherApiTimeConverter.serialize(LocalDateTime.of(dayAfter.getYear(), dayAfter.getMonthValue(), dayAfter.getDayOfMonth(), 00, 00));
+        final String dayStart = WeatherApiTimeStringConverter.serialize(LocalDateTime.of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), 00, 00));
+        final String dayEnd = WeatherApiTimeStringConverter.serialize(LocalDateTime.of(dayAfter.getYear(), dayAfter.getMonthValue(), dayAfter.getDayOfMonth(), 00, 00));
 
         return dto.getResponse().getBody().getItems().getItem().stream()
                 .filter(item -> item.getFcstTime().compareTo(dayStart) >= 0 && item.getFcstTime().compareTo(dayEnd) < 0)
@@ -107,7 +107,7 @@ public class WeatherApiService {
     private String parseIntoBaseTime(final LocalDateTime lookupTime){
         // 새벽 5시에 배치로 API를 요청한다. 최신 데이터인 전날 21시 데이터를 조회
         final LocalDateTime baseTime = extractBaseDateTime(lookupTime);
-        return WeatherApiTimeConverter.serialize(LocalDateTime.of(baseTime.getYear(), baseTime.getMonthValue(), baseTime.getDayOfMonth(), 21, 00));
+        return WeatherApiTimeStringConverter.serialize(LocalDateTime.of(baseTime.getYear(), baseTime.getMonthValue(), baseTime.getDayOfMonth(), 21, 00));
     }
 
     private LocalDateTime extractBaseDateTime(final LocalDateTime lookupTime){

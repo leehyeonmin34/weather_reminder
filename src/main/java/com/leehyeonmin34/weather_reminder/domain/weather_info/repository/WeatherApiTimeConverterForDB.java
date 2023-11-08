@@ -1,25 +1,28 @@
 package com.leehyeonmin34.weather_reminder.domain.weather_info.repository;
 
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeConverter;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeStringConverter;
+import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherApiTimeTimestampConverter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Converter
 @Component
-public class WeatherApiTimeConverterForDB implements AttributeConverter<LocalDateTime, String> {
+@RequiredArgsConstructor
+public class WeatherApiTimeConverterForDB implements AttributeConverter<LocalDateTime, Timestamp> {
 
 
     @Override
-    public String convertToDatabaseColumn(final LocalDateTime attribute) {
-        return WeatherApiTimeConverter.serialize(attribute);
+    public Timestamp convertToDatabaseColumn(final LocalDateTime attribute) {
+        return WeatherApiTimeTimestampConverter.serialize(attribute);
     }
 
     @Override
-    public LocalDateTime convertToEntityAttribute(final String dbData) {
-        return WeatherApiTimeConverter.parse(dbData);
+    public LocalDateTime convertToEntityAttribute(final Timestamp dbData) {
+        return WeatherApiTimeTimestampConverter.parse(dbData);
     }
 }
