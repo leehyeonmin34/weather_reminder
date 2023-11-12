@@ -64,6 +64,7 @@ public class MultiThreadLoadInfoBatch {
                 .reader(loadInfoReader())
                 .processor(loadInfoProcessor())
                 .writer(loadInfoWriter())
+                .throttleLimit(10)
                 .build();
     }
 
