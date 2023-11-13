@@ -2,20 +2,22 @@ package com.leehyeonmin34.weather_reminder.domain.notification.service.dust;
 
 import com.leehyeonmin34.weather_reminder.domain.dust_info.domain.DustInfo;
 import com.leehyeonmin34.weather_reminder.domain.dust_info.repository.DustInfoRepository;
-import com.leehyeonmin34.weather_reminder.domain.notification.service.common.NotiGenerator;
+import com.leehyeonmin34.weather_reminder.domain.notification.service.common.NotiStringGenerator;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.global.common.service.FutureHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+@Component
 @RequiredArgsConstructor
-public class DustNotiGenerator implements NotiGenerator {
+public class DustNotiStringGenerator implements NotiStringGenerator {
 
-    private final List<DustMessageGenerator> msgGenerators;
+    private final List<DustTypeNotiStringGenerator> msgGenerators;
     private final DustInfoRepository dustInfoRepository;
     private final FutureHandler futureHandler;
 

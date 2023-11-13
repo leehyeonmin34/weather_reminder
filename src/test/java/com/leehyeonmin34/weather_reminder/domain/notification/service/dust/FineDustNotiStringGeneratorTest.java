@@ -9,10 +9,10 @@ import org.mockito.InjectMocks;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-public class FineDustMessageGeneratorTest extends ServiceTest {
+public class FineDustNotiStringGeneratorTest extends ServiceTest {
 
     @InjectMocks
-    private FineDustMessageGenerator fineDustMessageGenerator;
+    private FineDustNotiStringGenerator fineDustNotiStringGenerator;
 
     @Test
     public void generateTest(){
@@ -22,7 +22,7 @@ public class FineDustMessageGeneratorTest extends ServiceTest {
         User user = UserBuilder.buildByOneRegion();
 
         // WHEN
-        String result = fineDustMessageGenerator.generate(user, dustInfo);
+        String result = fineDustNotiStringGenerator.generate(user, dustInfo);
 
         // THEN
         then(result).isEqualTo("미세먼지 메시지");

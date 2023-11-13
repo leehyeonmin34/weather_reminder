@@ -1,6 +1,5 @@
 package com.leehyeonmin34.weather_reminder.domain.notification.service.weather;
 
-import com.leehyeonmin34.weather_reminder.domain.notification.service.today_weather.TodayWeatherURLMessageGenerator;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.UserBuilder;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.builder.WeatherInfoListBuilder;
@@ -28,22 +27,22 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 
-public class WeatherMessageGeneratorTest extends ServiceTest {
+public class WeatherTypeNotiStringGeneratorTest extends ServiceTest {
 
     @InjectMocks
-    WeatherNotiGenerator weatherNotiGenerator;
+    WeatherNotiStringGenerator weatherNotiStringGenerator;
 
     @Mock
-    HotMessageGenerator hotMessageGenerator;
+    HotTypeNotiStringGenerator hotTypeNotiStringGenerator;
 
     @Mock
-    RainMessageGenerator rainMessageGenerator;
+    RainTypeNotiStringGenerator rainTypeNotiStringGenerator;
 
     @Mock
-    ColdMessageGenerator coldMessageGenerator;
+    ColdTypeNotiStringGenerator coldTypeNotiStringGenerator;
 
     @Spy
-    List<WeatherMessageGenerator> msgGenerators = new ArrayList<>();
+    List<WeatherTypeNotiStringGenerator> weatherTypeNotiStringGenerators = new ArrayList<>();
 
     @Spy
     FutureHandler futureHandler;
@@ -53,9 +52,9 @@ public class WeatherMessageGeneratorTest extends ServiceTest {
 
     @BeforeEach
     private void init(){
-        msgGenerators.add(hotMessageGenerator);
-        msgGenerators.add(coldMessageGenerator);
-        msgGenerators.add(rainMessageGenerator);
+        weatherTypeNotiStringGenerators.add(hotTypeNotiStringGenerator);
+        weatherTypeNotiStringGenerators.add(coldTypeNotiStringGenerator);
+        weatherTypeNotiStringGenerators.add(rainTypeNotiStringGenerator);
     }
 
     @ParameterizedTest(name = "{index} : 날씨 메시지 생성 - {0}")
@@ -67,13 +66,13 @@ public class WeatherMessageGeneratorTest extends ServiceTest {
         String rainMsg = rainNotiOn ? "비 알림" : "";
         String todayWeatherURL = "오늘의 날씨 URL";
 
-        when(hotMessageGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn(hotMsg);
-        when(coldMessageGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn(coldMsg);
-        when(rainMessageGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn(rainMsg);
+        when(hotTypeNotiStringGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn(hotMsg);
+        when(coldTypeNotiStringGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn(coldMsg);
+        when(rainTypeNotiStringGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn(rainMsg);
         when(weatherInfoService.getWeatherInfoListToday(any(WeatherRegion.class))).thenReturn(WeatherInfoListBuilder.build());
 
         // WHEN
-        String result = weatherNotiGenerator.generateMessage(user);
+        String result = weatherNotiStringGenerator.generateMessage(user);
 
         // THEN
         then(result).isEqualTo(expected);
@@ -93,13 +92,13 @@ public class WeatherMessageGeneratorTest extends ServiceTest {
     @DisplayName("날씨 메시지 생성 - 추운 날 알림은 예외로 생성 못함")
     public void generateMessageWithExceptionTest(){
         // GIVEN
-        when(hotMessageGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn("더운 날 알림");
-        when(coldMessageGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenThrow(new RuntimeException());
-        when(rainMessageGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn("비 알림");
+        when(hotTypeNotiStringGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn("더운 날 알림");
+        when(coldTypeNotiStringGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenThrow(new RuntimeException());
+        when(rainTypeNotiStringGenerator.generate(any(User.class), any(WeatherInfoList.class))).thenReturn("비 알림");
         when(weatherInfoService.getWeatherInfoListToday(any(WeatherRegion.class))).thenReturn(WeatherInfoListBuilder.build());
 
         // WHEN
-        String result = weatherNotiGenerator.generateMessage(UserBuilder.buildByOneRegion());
+        String result = weatherNotiStringGenerator.generateMessage(UserBuilder.buildByOneRegion());
 
         // THEN
         then(result).isEqualTo("서울 날씨 -----------\n\n더운 날 알림\n\n비 알림");

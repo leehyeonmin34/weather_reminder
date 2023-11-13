@@ -18,34 +18,34 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class DustNotiGeneratorTest extends ServiceTest {
+public class DustNotiStringGeneratorTest extends ServiceTest {
 
     @InjectMocks
-    DustNotiGenerator dustNotiGenerator;
+    DustNotiStringGenerator dustNotiStringGenerator;
 
     @Mock
-    FineDustMessageGenerator fineDustMessageGenerator;
+    FineDustNotiStringGenerator fineDustNotiStringGenerator;
 
     @Spy
-    List<DustMessageGenerator> msgGenerators = new ArrayList<>();
+    List<DustTypeNotiStringGenerator> notiStringGenerators = new ArrayList<>();
 
     @Spy
     FutureHandler futureHandler;
 
     @BeforeEach
     private void init(){
-        msgGenerators.add(fineDustMessageGenerator);
+        notiStringGenerators.add(fineDustNotiStringGenerator);
     }
 
 
     @Test
     public void generateTest(){
         // GIVEN
-        when(fineDustMessageGenerator.generate(any(User.class), any(DustInfo.class))).thenReturn("미세먼지 알림");
+        when(fineDustNotiStringGenerator.generate(any(User.class), any(DustInfo.class))).thenReturn("미세먼지 알림");
         User user = UserBuilder.buildByOneRegion();
 
         // WHEN
-        String result = dustNotiGenerator.generateMessage(user);
+        String result = dustNotiStringGenerator.generateMessage(user);
 
         // THEN
         then(result).isEqualTo("미세먼지 알림");

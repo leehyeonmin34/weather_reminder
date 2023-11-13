@@ -1,16 +1,11 @@
 package com.leehyeonmin34.weather_reminder.domain.notification.service.weather;
 
-import com.leehyeonmin34.weather_reminder.domain.notification.service.common.NotiGenerator;
+import com.leehyeonmin34.weather_reminder.domain.notification.service.common.NotiStringGenerator;
 import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import com.leehyeonmin34.weather_reminder.domain.user.model.Region;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.domain.WeatherInfo;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherDataType;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoList;
-import com.leehyeonmin34.weather_reminder.domain.weather_info.repository.WeatherInfoRepository;
 import com.leehyeonmin34.weather_reminder.domain.weather_info.service.WeatherInfoService;
 import com.leehyeonmin34.weather_reminder.global.common.service.FutureHandler;
-import com.leehyeonmin34.weather_reminder.global.common.service.StringJoiner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,9 +18,9 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class WeatherNotiGenerator implements NotiGenerator {
+public class WeatherNotiStringGenerator implements NotiStringGenerator {
 
-    private final List<WeatherMessageGenerator> msgGenerators;
+    private final List<WeatherTypeNotiStringGenerator> msgGenerators;
     private final WeatherInfoService weatherInfoService;
     private final FutureHandler futureHandler;
 
