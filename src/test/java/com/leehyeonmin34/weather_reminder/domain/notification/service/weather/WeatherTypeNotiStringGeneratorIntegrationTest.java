@@ -23,10 +23,10 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.Mockito.when;
 
 @Slf4j
-public class WeatherMessageGeneratorIntegrationTest extends IntegrationTest {
+public class WeatherTypeNotiStringGeneratorIntegrationTest extends IntegrationTest {
 
     @Autowired
-    WeatherNotiGenerator weatherNotiGenerator;
+    WeatherNotiStringGenerator weatherNotiStringGenerator;
 
     @MockBean
     WeatherInfoRepository weatherInfoRepository;
@@ -64,7 +64,7 @@ public class WeatherMessageGeneratorIntegrationTest extends IntegrationTest {
         User user = UserBuilder.buildByTwoRegion();
 
         // WHEN
-        String result = weatherNotiGenerator.generateMessage(user);
+        String result = weatherNotiStringGenerator.generateMessage(user);
 
         // THEN - 콘솔에 출력되는 메시지가 전반적으로 양식에 맞는지만 확인 (메시지 양식이 계속 변할 것 같기 때문)
         // 세부적인 테스트는 해당 클래스 테스트에서!

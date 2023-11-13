@@ -8,7 +8,6 @@ import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherInfoL
 import com.leehyeonmin34.weather_reminder.domain.weather_info.model.WeatherRegion;
 import com.leehyeonmin34.weather_reminder.global.cache.service.CacheModule;
 import com.leehyeonmin34.weather_reminder.global.test_config.ServiceTest;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,10 +18,10 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-public class RainMessageGeneratorTest extends ServiceTest {
+public class RainNotiStringGeneratorTest extends ServiceTest {
 
     @InjectMocks
-    private RainMessageGenerator rainMessageGenerator;
+    private RainTypeNotiStringGenerator rainTypeNotiStringGenerator;
 
     @Mock
     private CacheModule cacheModule;
@@ -35,7 +34,7 @@ public class RainMessageGeneratorTest extends ServiceTest {
         WeatherInfoList weatherInfoList = WeatherInfoListBuilder.build(WeatherRegion.SEOUL, WeatherDataType.RAIN, baseCondition);
 
         // WHEN
-        String result = rainMessageGenerator.generateForReal(user, weatherInfoList);
+        String result = rainTypeNotiStringGenerator.generateForReal(user, weatherInfoList);
 
         // THEN
         System.out.println(result);

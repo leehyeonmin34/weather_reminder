@@ -5,7 +5,7 @@ import com.leehyeonmin34.weather_reminder.domain.user.domain.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FineDustMessageGenerator implements DustMessageGenerator{
+public class FineDustNotiStringGenerator implements DustTypeNotiStringGenerator {
 
     @Override
     public String generate(User user, DustInfo dustInfo) {
