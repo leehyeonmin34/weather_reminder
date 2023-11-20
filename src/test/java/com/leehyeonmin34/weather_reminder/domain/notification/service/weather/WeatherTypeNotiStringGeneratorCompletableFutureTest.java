@@ -58,7 +58,7 @@ public class WeatherTypeNotiStringGeneratorCompletableFutureTest extends Integra
             Long duration1 = end1 - start1;
             duration1 /= (long) Math.pow(10, 6);
 
-            evictCache();
+//            evictCache();
 
             Long start2 = System.nanoTime();
             String msg2 = generateWithCompletableFuture(user);
@@ -66,14 +66,16 @@ public class WeatherTypeNotiStringGeneratorCompletableFutureTest extends Integra
             Long duration2 = end2 - start2;
             duration2 /= (long) Math.pow(10, 6);
 
-            evictCache();
+//            evictCache();
 
             // 앞 3-5번은 워밍이라고 간주하고 그 뒤 일정한 값들로 평균을 냄
-            // 캐시 miss : 1133ms, 790ms, 117ms / 59ms, 33ms, 33ms, 41ms, 46ms, 28ms, 58ms, 24ms (avg 29.77ms)
+            // 캐시 miss : 1133ms, 790ms, 117ms / 59ms, 33ms, 33ms, 41ms, 46ms, 28ms, 58ms (avg 42.57ms)
+            // 캐시 miss : 1235 49 51 61 51 59 54 77 24 19 (avg 42.57ms)
             // 캐시 hit : 951ms, 822ms, 707ms, 758ms / 20ms, 15ms, 17ms, 10ms, 11ms, 15ms, 11ms, 12ms, 21ms (avg 14.66ms)
             System.out.println(String.format("동기적 실행 : %d ms", duration1));
 
-            // 캐시 miss : 1166ms, 420ms, 35ms, 39ms / 22ms, 22ms, 41ms, 19ms, 36ms, 21ms, 22ms (avg 28.55 ms)
+            // 캐시 miss : 1166ms, 420ms, 41ms, 35ms, 39ms / 22ms, 22ms, 19ms, 36ms, 21ms, 22ms (avg 23.66 ms)
+            // 캐시 miss : 88 48 35 40 21 40 19 35 14 16 (avg 23.66 ms)
             // 캐시 hit : 33ms, 17ms, 21ms, 15ms, 17ms / 9ms, 7ms, 8ms, 6ms, 6ms, 7ms, 6ms, 5ms, 5ms (6.72 ms)
             System.out.println(String.format("비동기적 실행 : %d ms", duration2));
         }
