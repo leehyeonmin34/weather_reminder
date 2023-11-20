@@ -11,7 +11,7 @@ spring:
           batch_size: 100
     defer-datasource-initialization: true
     generate-ddl: true
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: update
     show-sql:  true
 
 --- # local 설정
@@ -24,7 +24,7 @@ spring:
     url: jdbc:mysql://localhost:3306/weather_reminder?rewriteBatchedStatements=true&profileSQL=true&logger=Slf4JLogger&maxQuerySizeToLog=999999
     username: connectuser
     password: connect123!@#
-    initialization-mode: always
+    initialization-mode: update
 
 
 --- # test 설정

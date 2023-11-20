@@ -21,7 +21,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 public class ColdNotiStringGeneratorTest extends ServiceTest {
 
     @InjectMocks
-    private ColdTypeNotiStringGenerator coldTypeNotiStringGenerator;
+    private ColdNotiStringGenerator coldNotiStringGenerator;
 
     @Mock
     private CacheModule cacheModule;
@@ -34,7 +34,7 @@ public class ColdNotiStringGeneratorTest extends ServiceTest {
         WeatherInfoList weatherInfoList = WeatherInfoListBuilder.build(WeatherRegion.SEOUL, WeatherDataType.TEMP, baseCondition);
 
         // WHEN
-        String result = coldTypeNotiStringGenerator.generateForReal(user, weatherInfoList);
+        String result = coldNotiStringGenerator.generateForReal(user, weatherInfoList);
 
         // THEN
         System.out.println(result);
