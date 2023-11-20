@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class HotTypeNotiStringGenerator implements WeatherTypeNotiStringGenerator {
+public class HotNotiStringGenerator implements WeatherTypeNotiStringGenerator {
 
     public static final NotiContentType notiContentType = NotiContentType.HOT;
 

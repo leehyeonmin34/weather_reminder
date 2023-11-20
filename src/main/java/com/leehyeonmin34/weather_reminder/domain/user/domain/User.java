@@ -59,6 +59,89 @@ public class User {
     @Column(name = "pause_until", updatable = true, nullable = true)
     private LocalDateTime pauseUntil;
 
+    private User(Builder builder){
+        this.id = builder.getId();
+        this.createdAt = builder.getCreatedAt();
+        this.updatedAt = builder.getUpdatedAt();
+        this.coldNotiSetting = builder.getColdNotiSetting();
+        this.hotNotiSetting = builder.getHotNotiSetting();
+        this.rainNotiSetting = builder.getRainNotiSetting();
+        this.snowNotiSetting = builder.getSnowNotiSetting();
+        this.notiTime = builder.getNotiTime();
+        this.regionList = builder.getRegionList();
+        this.pauseUntil = builder.pauseUntil;
+    }
+
+    @Getter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
+    public static class Builder{
+
+        private Long id;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
+        private ColdNotiSetting coldNotiSetting = new ColdNotiSetting();
+        private HotNotiSetting hotNotiSetting = new HotNotiSetting();
+        private RainNotiSetting rainNotiSetting = new RainNotiSetting();
+        private SnowNotiSetting snowNotiSetting = new SnowNotiSetting();
+        private DayTime notiTime;
+        private List<Region> regionList = new ArrayList<>();
+        private LocalDateTime pauseUntil;
+
+        public Builder id(Long id){
+            this.setId(id);
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt){
+            this.setId(id);
+            return this;
+        }
+
+        public Builder updatedAt(LocalDateTime updatedAt){
+            this.setUpdatedAt(updatedAt);
+            return this;
+        }
+
+        public Builder coldNotiSetting(ColdNotiSetting coldNotiSetting){
+            this.setColdNotiSetting(coldNotiSetting);
+            return this;
+        }
+
+        public Builder hotNotiSetting(HotNotiSetting hotNotiSetting){
+            this.setHotNotiSetting(hotNotiSetting);
+            return this;
+        }
+
+        public Builder rainNotiSetting(RainNotiSetting rainNotiSetting){
+            this.setRainNotiSetting(rainNotiSetting);
+            return this;
+        }
+
+        public Builder snowNotiSetting(SnowNotiSetting snowNotiSetting){
+            this.setSnowNotiSetting(snowNotiSetting);
+            return this;
+        }
+
+        public Builder notiTime(DayTime notiTime){
+            this.setNotiTime(notiTime);
+            return this;
+        }
+
+        public Builder regionList(List<Region> regionList){
+            this.setRegionList(regionList);
+            return this;
+        }
+
+        public Builder pauseUntil(LocalDateTime pauseUntil){
+            this.setPauseUntil(pauseUntil);
+            return this;
+        }
+
+        public User build(){
+            return new User(this);
+        };
+    }
+
 
     public void setNotiTime(DayTime notiTime){
         this.notiTime = notiTime;

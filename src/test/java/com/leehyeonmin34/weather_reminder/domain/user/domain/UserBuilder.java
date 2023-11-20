@@ -7,8 +7,8 @@ public class UserBuilder {
     static public User buildByOneRegion(){
         User user = new User();
         user.getRegionList().add(Region.SEOUL);
-        user.getColdNotiSetting().changeConditionCelcius((byte) 0);
-        user.getHotNotiSetting().changeConditionCelcius((byte) 3);
+        user.getColdNotiSetting().changeConditionCelcius((byte) 5);
+        user.getHotNotiSetting().changeConditionCelcius((byte) 5);
         user.getRainNotiSetting().changeConditionTime((byte) 8);
         return user;
     }
