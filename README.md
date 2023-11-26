@@ -17,10 +17,6 @@
 
 <br />
 
-## 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇<br />[<U>문제해결 등 중요한 내용은 📓위키 를 참조해주세요 !</U>](https://github.com/leehyeonmin34/weather_reminder/wiki) <br />👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
-
-<br />
-
 ## 프로젝트 구조
 <img width="1213" alt="image" src="https://github.com/leehyeonmin34/dambae200/assets/66104031/f261a052-a325-4471-bb77-3916ce78acf9">
 
@@ -53,6 +49,47 @@
 - Jenkins
 - Naver Cloud Platform
 
+# 문제 해결
+
+## 비동기 처리
+[🔗 캐시와 배치, 비동기를 활용해 667% 빠른 알림 생성 🔥](https://velog.io/@leehyeonmin34/weather-reminder-noti-generation)
+
+[🔗 코드 수준에서 메시지 큐 구현 🔥](https://velog.io/@leehyeonmin34/weather-reminder-message-q-as-code)
+
+
+<br />
+
+## 테스트
+[🔗 @ParemeterizedTest를 적극활용해 다양한 시나리오를 고려한 BDD 유닛 테스트 🔥](https://velog.io/@leehyeonmin34/parameterized-test)
+
+[🔗 테스트 종류별로 설정을 일관되게 관리 🔥](https://github.com/leehyeonmin34/weather_reminder/wiki/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95)
+
+[🔗 테스트 롤백용 쿼리를 위해 QueryDSL 활용](https://velog.io/@leehyeonmin34/weather-reminder-querydsl)
+
+<br />
+
+
+## 쿼리 최적화
+
+[🔗 핵심 조회쿼리에 복합인덱스를 설정해 조회성능 900% 개선(쿼리 실행계획 확인) 🔥](https://velog.io/@leehyeonmin34/weather-reminder-multi-column-index)
+
+[🔗 deleteAll 대신 deleteAllInBatch를 사용해 2N개의 쿼리를 2개로](https://velog.io/@leehyeonmin34/weather-info-delete-all-in-batchC)
+
+[🔗 saveAll이 배치 인서트를 실행하도록 설정해 N개의 쿼리를 1개로](https://velog.io/@leehyeonmin34/weather-reminder-saveall-to-batch-insert)
+
+<br />
+
+## 기타
+
+[🔗 협업 경험을 시뮬레이션하기 위해 git-flow 브랜치 관리, 이슈 단위로 커밋](https://velog.io/@leehyeonmin34/weather-reminder-git-flow)
+
+[🔗 DB 용량을 줄이기 위해 Converter로 Java 객체를 DB 칼럼에 맵핑](https://velog.io/@leehyeonmin34/weather-reminder-converter)
+
+[🔗 배치 인서트를 위해 JdbcBatchItemWriter를 선택](https://github.com/leehyeonmin34/weather_reminder/wiki/%EB%B0%B0%EC%B9%98-%EC%9D%B8%EC%84%9C%ED%8A%B8%EB%A5%BC-%EC%9C%84%ED%95%B4-JdbcBatchItemWriter%EB%A5%BC-%EC%84%A0%ED%83%9D)
+
+[🔗 SpringBatch ItemWriter에 List 전달하기](https://velog.io/@leehyeonmin34/weather-reminder-nested-list-to-item-writer)
+
+[🔗 @Retryable을 활용해 API 요청 타임아웃 및 재시도 설정](https://velog.io/@leehyeonmin34/weather-reminder-retryable-rest-template)
 
 
 <br />
